@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script type="text/javascript" src="teletext-editor.js"></script>
+<script type="text/javascript">
+// @licstart  The following is the entire license notice for the 
+//  JavaScript code in this page.
+//
+// Copyright 2015-2017 James Timmons, Simon Rawles, Alan Davies,
+// Tim Hutton, Steve Horsley, Alistair Cree, Peter Fagan and
+// David Hall.
+//
+// The JavaScript code in this page is free software: you can
+// redistribute it and/or modify it under the terms of the GNU
+// General Public License (GNU GPL) as published by the Free Software
+// Foundation, either version 3 of the License, or (at your option)
+// any later version.  The code is distributed WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS
+// FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+//
+// As additional permission under GNU GPL version 3 section 7, you
+// may distribute non-source (e.g., minimized or compacted) forms of
+// that code without the copy of the GNU GPL normally required by
+// section 4, provided you include this license notice and a URL
+// through which recipients can access the Corresponding Source.
+//
+// @licend  The above is the entire license notice for the JavaScript
+//  code in this page.
+
+// This viewer is a rudimentary re-purposing of the brilliant edit.tf
+
+var defaultPage = location.search ? location.search.substring(1) : '101';
+var pagenum = defaultPage;
+var newpage = '';
+var framenum = 0;
+var editor = null;
+
+function init_frames() {
+	// Create a new editor:
+	editor = new Editor();
+
+	// Initialise the editor, placing it in the canvas with HTML
+	// ID 'frame'.
+	editor.init_frame("frame");
+	fetch_page(defaultPage, editor);
+	document.addEventListener('keyup', (event) => {
+		if (event.isComposing || event.keyCode === 229) return;
+		nav(event.keyCode);
+	});
+}
+
+// Function to handle keycodes for navigation
+// Numbers act as you would expect, left and right arrows
+// navigate between subpages in a carousel/multiframe page
+function nav(code) {
+	if (code > 47 && code < 58) newpage += (code - 48).toString(10);
+	if (code === 37 && framenum > 0) {
+		framenum--;
+		newpage = pagenum;
+	}
+	if (code === 39 && framenum < 255) {
+		framenum++;
+		newpage = pagenum;
+	}
+	var pndisplay = newpage.padEnd(3);
+	if (newpage.length > 0) {
+		for (var i = 0; i < 3; i++) {
+			editor.put_char(i+1,0,pndisplay.charCodeAt(i),1);
+			editor.redraw();
+		}
+	}
+	if (newpage.length === 3) {
+		if (newpage !== pagenum) framenum = 0;
+		fetch_page(newpage + ':' + framenum.toString(10), editor);
+		pagenum = newpage;
+		newpage = '';
+	}
+}
+
+// Gets the page frame for a given pagenumber:framenumber combo from the server.
+// e.g. '101:0' would be the first frame of page 101
+function fetch_page(pageNumberAsString, editor) {
+	var request = new Request('/pages/'+ pageNumberAsString +'?b64');
+	fetch(request)
+		.then(response => {
+			if (response.status !== 200) {
+				console.log(response);
+				alert(pageNumberAsString + ' - ' + response.statusText);
+				return;
+			} else {
+				return response.text();
+			}
+		})
+		.then(text => {
+			editor.init_frame('frame');
+			editor.load('0:' + text);
+		});
+}
+</script>
+<title>CastleText</title>
+<style type="text/css">
+/* Colour palette, dark to light: #222, #343, #797, #9b9 */
+
+
+/* layout ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ */
+
+html {
+	-webkit-text-size-adjust: 100%;
+	    -ms-text-size-adjust: 100%;
+}
+body {
+	margin: 0;
+	background-color: #222;
+}
+div#a {
+	display: table;
+	position: fixed;
+	top: 0; left: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+}
+div.b {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+
+#keypad {
+	display: inline-block;
+	margin-top: 2em;
+	border-spacing: 1em;
+}
+
+#keypad td {
+	color: #fff;
+	background-color: #000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.4em;
+	font-weight: bold;
+	padding: 0.4em;
+}
+
+@font-face {
+    font-family: 'ttkit';
+    src:url('fonts/TeletextKit.eot');
+    src:url('fonts/TeletextKit.eot?#iefix') format('embedded-opentype'),
+	url('fonts/TeletextKit.woff') format('woff'),
+	url('fonts/TeletextKit.ttf') format('truetype'),
+	url('fonts/TeletextKit.svg#icons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* teletext canvas ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  */
+
+#canvasframe {
+	display: inline-block;
+	-moz-border-radius: 10px;
+	    border-radius: 10px;
+	background-color: #000;
+	padding: 7px 10px;
+}
+#canvasframe canvas {
+	/* The canvas should have no padding */
+	background-color: #000;
+	margin: 0;
+	cursor: crosshair;
+	position:relative;
+	z-index: 1;
+}
+</style>
+<meta name="theme-color" content="#000000">
+</head>
+<body onload="init_frames();">
+
+<div id="a">
+<div class="b">
+<div id="canvasframe">
+<canvas id="frame" width="960" height="1000" style="width: 576px; height: 500px;"></canvas>
+</div>
+<div><table id="keypad">
+	<tr><td onclick="nav(49)">1</td><td onclick="nav(50)">2</td><td onclick="nav(51)">3</td></tr>
+	<tr><td onclick="nav(52)">4</td><td onclick="nav(53)">5</td><td onclick="nav(54)">6</td></tr>
+	<tr><td onclick="nav(55)">7</td><td onclick="nav(56)">8</td><td onclick="nav(57)">9</td></tr>
+	<tr><td onclick="nav(37)">←</td><td onclick="nav(48)">0</td><td onclick="nav(39)">→</td></tr>
+</table></div></div></div>
+
+</body>
+</html>
