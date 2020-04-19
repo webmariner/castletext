@@ -460,6 +460,6 @@ const serveViewer = (req, res, path) => {
 };
 
 server.listen(port, hostname, () => {
-	console.log(`Se⚹tile server running on port ${port}`);
+	console.log(`CastleText server running on port ${port}`);
 });
 
