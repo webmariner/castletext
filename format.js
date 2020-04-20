@@ -214,19 +214,19 @@ Writes out a raw memory frame as a JavaScript literal string.
 Escapes any Mode 7 control codes and the double quote mark.
 */
 exports.rawToJsStringLiteral = (raw) => {
-	let literal = '"';
+	let literal = "'";
 	for (let p = 0; p < raw.length; p++) {
-		if (p % 40 === 0 && p > 0) literal += '" + \n"'
+		if (p % 40 === 0 && p > 0) literal += "' + \n'"
 		let pchar = raw.charAt(p);
 		let pcode = pchar.charCodeAt(0);
 		if (pcode > 0x7f) { throw new Error(`Invalid videotex codepoint ${pcode}`) };
-		if (pcode < 0x20 || pcode === 0x7f || pcode === 0x22) {
+		if (pcode < 0x20 || pcode === 0x7f || pcode === 0x27) {
 			literal += ('\\x' + pcode.toString(16).padStart(2, '0'));
 		} else {
 			literal += pchar;
 		}
 	}
-	literal += '"';
+	literal += "'";
 	return literal;
 };
 

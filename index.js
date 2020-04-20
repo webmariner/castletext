@@ -40,7 +40,7 @@ const TEXT_RED		= '\x01',
 const menuPages = [
 	{
 		number: '101',
-		frames: ['NEUCDAsYePHhg4WZFmxYkaIEDxYZLLHiR4s0INCjYsQIECA0RQIGqBB_a_2qlZkQakCBqgQPVhkkgaoHqxBlSoNSBAgQIDRFAgU8En9__a5ODpBqQIOvBh14GSaBqg68NCHSg1IECBAgAnQY1AgQIECBAgQTcOncgnZe_NBNy7uqBAgQIECBAgQIECACdBjUCBAgQIECBBNw6dyCdl780E3Lu6oECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgBDUCBBChQ0CBAgQIECBAgQIECBAgQSd2TLwy7smXd0QIECAENQIEEKFDQIECBAgQIECBAgQIECBBJ3ZMvDLuyZd3RAgQIAbFiwDTcOncgnZe_NAgQIECAGxZMA03Dp3IJ2XvzQIECBAgBsmTANX38tmRBOy9-aBAgQIAbFywDU8enLux5UCBAgQIECAGyZsA1TLj0bt-zfn8oECBAgBsmjANQ37NPTTj5oECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgBDUCBBSy9emXlzQIECBAgQIECBAgQUsufTz6ZeSBAgQIECAENQIEFLL16ZeXNAgQIECBAgQIECBBSy59PPpl5IECBAgQIAbFowDVN_BBOy9-aBAgQIECAGxbMA0jLhybNO7LzQIECBAgBsWrANPyZNnlBF3b-ufQgQIAbFuwDVsvLT08oKfTfiQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIAbFmwDRevLfuy9-aBAgQIECBAgQIECBAgQIECBAgQIECBAgBsXDANT2YeejJv6IECBAgQIECBAgQIECBAgQIECBAgQIECAGyYMA0frh5ZNOHcgQIECBAgQIECBAgQIECBAgQIECBAgQIAbJiwDSd2TLwy7smXd0XacqBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIAJ0GgQIECBAgQIECCbh07kE3Lu6oGLBggQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECA']
+		frames: ['NEUCDAsYePHhg4WZFmxYkaIEDxYZLLHiR4s0INCjYsQIECA0RQIGqBB_a_2qlZkQakCBqgQPVhkkgaoHqxBlSoNSBAgQIDRFAgU8En9__a5ODpBqQIOvBh14GSaBqg68NCHSg1IECBAgAnQY1AgQIECBAgQTcOncgnZe_NBNy7uqBAgQIECBAgQIECACdBjUCBAgQIECBBNw6dyCdl780E3Lu6oECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgBDUCBBChQ0CBAgQIECBAgQIECBAgQSd2TLwy7smXd0QIECAENQIEEKFDQIECBAgQIECBAgQIECBBJ3ZMvDLuyZd3RAgQIAbFiwDTcOncgnZe_NAgQIECAGxZMA03Dp3IJ2XvzQIECBAgBsmTANX38tmRBOy9-aBAgQIAbFywDU8enLux5UCBAgQIECAGyZsA1TLj0bt-zfn8oECBAgBsmjANQ37NPTTj5oECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgBDUCBBSy9emXlzQIECBAgQIECBAgQUsufTz6ZeSBAgQIECAENQIEFLL16ZeXNAgQIECBAgQIECBBSy59PPpl5IECBAgQIAbFowDVN_BBOy9-aBAgQIECAGxbMA0jLhybNO7LzQIECBAgBsWrANPyZNnlBF3b-ufQgQIAbFuwDVsvLT08oKfTfiQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIAbFmwDRevLfuy9-aBAgQIECAGyasA07L359NHXbwQIECBAgBsXDANT2YeejJv6IECBAgQIECBAgQIECBAgQIECBAgQIECAGyYMA0frh5ZNOHcgQIECBAgQIECBAgQIECBAgQIECBAgQIAbJiwDSd2TLwy7smXd0XacqBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIAJ0GgQIECBAgQIECCbh07kE3Lu6oGLBggQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECA']
 	},
 	{
 		number: '110',
@@ -79,12 +79,22 @@ const menuPages = [
 		number: '140',
 		feed: 'http://feeds.reuters.com/reuters/topNews',
 		name: 'Reuters Top News',
+		masthead:
+			'\x11\x1a p,d0\x17\x19p0`p` 0pp0p0p0 p\x07              ' + 
+			'\x11\x1ah564}\x17\x19u:j,j 5 5 =$u:*d\x07              ' + 
+			'\x11\x1a -r8%\x17\x19%)*,",! % -$%)(&\x07TOP NEWS      ',
+		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
 		articleCopy: 'div.StandardArticleBody_body>p'
 	},
 	{
 		number: '150',
 		feed: 'http://feeds.reuters.com/reuters/oddlyEnoughNews',
 		name: 'Reuters Oddly Enough',
+		masthead:
+			'\x11\x1a p,d0\x17\x19p0`p` 0pp0p0p0 p\x07              ' + 
+			'\x11\x1ah564}\x17\x19u:j,j 5 5 =$u:*d\x07              ' + 
+			'\x11\x1a -r8%\x17\x19%)*,",! % -$%)(&\x07ODDLY ENOUGH  ',
+		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
 		articleCopy: 'div.StandardArticleBody_body>p'
 	},
 	{
@@ -113,12 +123,22 @@ const menuPages = [
 		number: '180',
 		feed: 'http://rss.slashdot.org/Slashdot/slashdot',
 		name: 'Slashdot',
+		masthead:
+			'\x16\x1d\x17 h?  \x07S L A S H D O T                ' + 
+			'\x16\x1d\x17`\x7f!`0\x07News for nerds,                ' + 
+			'\x16\x1d\x17~% o?\x07stuff that matters             ',
+		footerPrefix: TEXT_CYAN + NEW_BACKGRD + TEXT_WHITE,
 		articleCopy: 'div.body div.p'
 	},
 	{
 		number: '190',
 		feed: 'http://www.independent.co.uk/news/science/rss',
 		name: 'Independent - Science',
+		masthead:
+			'\x11`|w}t\x17INDEPENDENT                      ' + 
+			'\x11j\x7f4\x7f\x7f\x17w16#jjsjt56#js                   ' + 
+			'\x11"/|>\x27\x17,%),**,*"%),*,                   ',
+		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
 		articleCopy: '#main div.body-content>p'
 	},
 	{
@@ -160,11 +180,17 @@ const menuPages = [
 		feed: 'http://www.independent.co.uk/news/uk/politics/rss',
 		name: 'Independent Politics',
 		masthead:
-			'\x11\x60\x7c\x77\x7d\x74\x17INDEPENDENT                      ' +
-			'\x11\x6a\x7f\x34\x7f\x7f\x17\x3d\x38\x35\x76\x79\x6a\x6a\x74\x35\x6a\x74\x35\x77\x31\x6d\x6a\x68\x25\x77\x31             ' +
-			'\x11\x22\x2f\x7c\x3e\x27\x17\x25\x21\x25\x25\x2a\x2a\x2a\x22\x25\x2a\x22\x25\x2d\x24\x22\x27\x27\x20\x2c\x25             ',
+			'\x11`|w}t\x17INDEPENDENT                      ' + 
+			'\x11j\x7f4\x7f\x7f\x17w9h#45 5#7!56#js                 ' + 
+			'\x11\x22/|>\'\x17% \x22,!-$% % %),(.                 ',
 		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
 		articleCopy: '#main div.body-content>p'
+	},
+	{
+		number: '250',
+		feed: 'https://newsthump.com/feed/',
+		name: 'Newsthump',
+		articleCopy: 'div.tve-tl-cnt-wrap>p'
 	}
 ];
 
@@ -383,7 +409,7 @@ const server = http.createServer((req, res) => {
 			payload = format.rawToB64(header + frames[frameNumber]);
 		} else if (fmt === '?edit') {
 			res.statusCode = 302;
-			res.setHeader('Location', '/#0:' + format.rawToB64(header + frames[frameNumber]));
+			res.setHeader('Location', 'http://edit.tf/#0:' + format.rawToB64(header + frames[frameNumber]));
 		} else {
 			res.setHeader('Content-Type', 'application/viewdata-frame');
 			payload = header + frames[frameNumber];
