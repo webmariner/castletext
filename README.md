@@ -18,3 +18,11 @@ npm install
 node index.js
 ```
 then point your web browser to localhost:1700
+
+Docker
+======
+
+prerequisites: Docker, docker-compose
+
+* docker-compose build
+* docker-compose up
