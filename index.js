@@ -145,12 +145,22 @@ const menuPages = [
 		number: '200',
 		feed: 'https://www.theguardian.com/uk/rss',
 		name: 'The Guardian',
+		masthead:
+			'\x04\x1d\x17x\x27+ ` ` p   00`h4< p  ``             ' + 
+			'\x04\x1d\x17\x7f(|&\x7f"\x7f`a} k7i\x27k5|`a}"\x7fk5            ' + 
+			'\x04\x1d\x17",\x27 +&\x27"\x27/$.%"-+)/"\x27/,/*-            ',
+		footerPrefix: TEXT_BLUE + NEW_BACKGRD + TEXT_WHITE,
 		articleCopy: 'div.content__article-body>p'
 	},
 	{
 		number: '210',
 		feed: 'https://www.independent.ie/rss/',
 		name: 'Irish Independent',
+		masthead:
+			'\x07\x1d\x12<<<|                                 ' + 
+			'\x07\x1d\x125u}%\x04Independent.ie                  ' + 
+			'\x07\x1d\x12)/!                                  ',
+		footerPrefix: TEXT_WHITE + NEW_BACKGRD + TEXT_BLUE,
 		articleCopy: 'div.n-body1>p'
 	},
 	{
@@ -190,6 +200,11 @@ const menuPages = [
 		number: '250',
 		feed: 'https://newsthump.com/feed/',
 		name: 'Newsthump',
+		masthead:
+			'\x01\x1d\x17\x1ath p 0  0`p(l,h                     ' + 
+			'\x01\x1d\x17\x1a7~j,%mjh%)l j j#45jj#7ij#4          ' + 
+			'\x01\x1d\x17\x1a!" # "## #! " " !"!" !"j#           ',
+		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
 		articleCopy: 'div.tve-tl-cnt-wrap>p'
 	}
 ];
