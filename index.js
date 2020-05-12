@@ -40,7 +40,7 @@ const TEXT_RED		= '\x01',
 const menuPages = [
 	{
 		number: '101',
-		frames: ['NEUCDAsYePHhg4WZFmxYkaIEDxYZLLHiR4s0INCjYsQIECA0RQIGqBB_a_2qlZkQakCBqgQPVhkkgaoHqxBlSoNSBAgQIDRFAgU8En9__a5ODpBqQIOvBh14GSaBqg68NCHSg1IECBAgAnQY1AgQIECBAgQTcOncgnZe_NBNy7uqBAgQIECBAgQIECACdBjUCBAgQIECBBNw6dyCdl780E3Lu6oECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgBDUCBBChQ0CBAgQIECBAgQIECBAgQSd2TLwy7smXd0QIECAENQIEEKFDQIECBAgQIECBAgQIECBBJ3ZMvDLuyZd3RAgQIAbFiwDTcOncgnZe_NAgQIECAGxZMA03Dp3IJ2XvzQIECBAgBsmTANX38tmRBOy9-aBAgQIAbFywDU8enLux5UCBAgQIECAGyZsA1TLj0bt-zfn8oECBAgBsmjANQ37NPTTj5oECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgBDUCBBSy9emXlzQIECBAgQIECBAgQUsufTz6ZeSBAgQIECAENQIEFLL16ZeXNAgQIECBAgQIECBBSy59PPpl5IECBAgQIAbFowDVN_BBOy9-aBAgQIECAGxbMA0jLhybNO7LzQIECBAgBsWrANPyZNnlBF3b-ufQgQIAbFuwDVsvLT08oKfTfiQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIAbFmwDRevLfuy9-aBAgQIECAGyasA07L359NHXbwQIECBAgBsXDANT2YeejJv6IECBAgQIECBAgQIECBAgQIECBAgQIECAGyYMA0frh5ZNOHcgQIECBAgQIECBAgQIECBAgQIECBAgQIAbJiwDSd2TLwy7smXd0XacqBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIAJ0GgQIECBAgQIECCbh07kE3Lu6oGLBggQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECA']
+		frames: ['oMWDEDDw8-mzLUy-Ogap1yoGLJBNw-UDJgyYA2TN00armbQ0RQIMCxh48eGDhZkWbFiRogQPFhksseJHizQg0KNixAgQIDRFAgaoEH9r_aqVmRBqQIGqBA9WGSSBqgerEGVKg1IECBAgNEUCBTwSf3_9rk4OkGpAg68GHXgZJoGqDrw0IdKDUgQIECACdBjUCBAgQIECBBNw6dyCdl780E3Lu6oECBAgQIECBAgQIAJ0GNQIECBAgQIEE3Dp3IJ2XvzQTcu7qgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECAENQIEEKFDQIECBAgQIECBAgQIECBBJ3ZMvDLuyZd3RAgQIAQ1AgQQoUNAgQIECBAgQIECBAgQIEEndky8Mu7Jl3dECBAgBsWLANNw6dyCdl780CBAgQIAbFkwDTcOncgnZe_NAgQIECAGyZMA1ffy2ZEE7L35oECBAgBsXLANTx6cu7HlQIECBAgQIAbJmwDVMuPRu37N-fygQIECAGyaMA1Dfs09NOPmgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECAENQIEFLL16ZeXNAgQIECBAgQIECBBSy59PPpl5IECBAgQIAQ1AgQUsvXpl5c0CBAgQIECBAgQIEFLLn08-mXkgQIECBAgBsWjANU38EE7L35oECBAgQIAbFswDSMuHJs07svNAgQIECAGxasA0_Jk2eUEXdv659CBAgBsW7ANWy8tPTygp9N-JAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgBsmDANH64eWTTh3IECBAgQIAbFwwDU9mHnoyb-iBAgQIECAGybsA06ygqaduXngr7-WzIgBsmrANOy9-fTR128ECBAgQIAbFmwDRevLfuy9-aBAgQIECAGgQIAyBAgQIECBAgQIECBAgBsmLANJ3ZMvDLuyZd3RdpyoAbJwwDVNGVBOw9NO_dh2IECAGybMA07L3QWd_LWgqaduXmgBsnLANXy8-mXluQTcOnYgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgAnQaBAgQIECBAgQIJuHTuQTcu7qgYsGCBAgQIECBAgQIECA']
 	},
 	{
 		number: '110',
@@ -206,6 +206,30 @@ const menuPages = [
 			'\x01\x1d\x17\x1a!" # "## #! " " !"!" !"j#           ',
 		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
 		articleCopy: 'div.tve-tl-cnt-wrap>p'
+	},
+	{
+		number: '260',
+		feed: 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
+		name: 'New York Times',
+		articleCopy: 'div.StoryBodyCompanionColumn>div>p'
+	},
+	{
+		number: '270',
+		feed: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
+		name: 'New York Times - World',
+		articleCopy: 'div.StoryBodyCompanionColumn>div>p'
+	},
+	{
+		number: '280',
+		feed: 'https://www.thenational.scot/news/rss/',
+		name: 'The National (Scotland)',
+		articleCopy: 'div.article-body p'
+	},
+	{
+		number: '290',
+		feed: 'https://www.walesonline.co.uk/news/?service=rss',
+		name: 'Western Mail (Wales)',
+		articleCopy: 'div.article-body p'
 	}
 ];
 
@@ -416,18 +440,24 @@ const server = http.createServer((req, res) => {
 	let payload = '';
 	if (frames[frameNumber]) {
 		res.statusCode = 200;
+		let headedFrame = frames[frameNumber];
+		if (headedFrame.length < (25 * 40)) {
+			headedFrame = header + headedFrame;
+		} else {
+			headedFrame = header + headedFrame.slice(-(24 * 40));
+		}
 		if (fmt === '?jslit') {
 			res.setHeader('Content-Type', 'text/plain');
-			payload = format.rawToJsStringLiteral(header + frames[frameNumber]);
+			payload = format.rawToJsStringLiteral(headedFrame);
 		} else if (fmt === '?b64') {
 			res.setHeader('Content-Type', 'text/plain');
-			payload = format.rawToB64(header + frames[frameNumber]);
+			payload = format.rawToB64(headedFrame);
 		} else if (fmt === '?edit') {
 			res.statusCode = 302;
-			res.setHeader('Location', 'http://edit.tf/#0:' + format.rawToB64(header + frames[frameNumber]));
+			res.setHeader('Location', 'http://edit.tf/#0:' + format.rawToB64(headedFrame));
 		} else {
 			res.setHeader('Content-Type', 'application/viewdata-frame');
-			payload = header + frames[frameNumber];
+			payload = headedFrame;
 		}
 		res.end(payload);
 	} else {
