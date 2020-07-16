@@ -77,7 +77,7 @@ const menuPages = [
 	},
 	{
 		number: '140',
-		feed: 'http://feeds.reuters.com/reuters/topNews',
+		feed: 'https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=GB:en&hl=en-GB&gl=GB',
 		name: 'Reuters Top News',
 		masthead:
 			'\x11\x1a p,d0\x17\x19p0`p` 0pp0p0p0 p\x07              ' + 
