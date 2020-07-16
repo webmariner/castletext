@@ -1,6 +1,8 @@
 # castletext
 RSS to Teletext server with bundled web viewer based on edit.tf
 
+![teletext menu screenshot](docs/menu.png)
+
 How the long Covid-19 lockdown evenings fly by... 😉
 
 This project serves teletext frames in BBC Micro Mode 7 display RAM format to a separate BBC Basic client I wrote
