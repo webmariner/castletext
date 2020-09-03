@@ -40,7 +40,7 @@ const TEXT_RED		= '\x01',
 const menuPages = [
 	{
 		number: '101',
-		frames: ['oMWDEDDw8-mzLUy-Ogap1yoGLJBNw-UDJgyYA2TN00armbQ0RQIMCxh48eGDhZkWbFiRogQPFhksseJHizQg0KNixAgQIDRFAgaoEH9r_aqVmRBqQIGqBA9WGSSBqgerEGVKg1IECBAgNEUCBTwSf3_9rk4OkGpAg68GHXgZJoGqDrw0IdKDUgQIECACdBjUCBAgQIECBBNw6dyCdl780E3Lu6oECBAgQIECBAgQIAJ0GNQIECBAgQIEE3Dp3IJ2XvzQTcu7qgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECAENQIEEKFDQIECBAgQIECBAgQIECBBJ3ZMvDLuyZd3RAgQIAQ1AgQQoUNAgQIECBAgQIECBAgQIEEndky8Mu7Jl3dECBAgBsWLANNw6dyCdl780CBAgQIAbFkwDTcOncgnZe_NAgQIECAGyZMA1ffy2ZEE7L35oECBAgBsXLANTx6cu7HlQIECBAgQIAbJmwDVMuPRu37N-fygQIECAGyaMA1Dfs09NOPmgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECAENQIEFLL16ZeXNAgQIECBAgQIECBBSy59PPpl5IECBAgQIAQ1AgQUsvXpl5c0CBAgQIECBAgQIEFLLn08-mXkgQIECBAgBsWjANU38EE7L35oECBAgQIAbFswDSMuHJs07svNAgQIECAGxasA0_Jk2eUEXdv659CBAgBsW7ANWy8tPTygp9N-JAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgBsmDANH64eWTTh3IECBAgQIAbFwwDU9mHnoyb-iBAgQIECAGybsA06ygqaduXngr7-WzIgBsmrANOy9-fTR128ECBAgQIAbFmwDRevLfuy9-aBAgQIECAGgQIAyBAgQIECBAgQIECBAgBsmLANJ3ZMvDLuyZd3RdpyoAbJwwDVNGVBOw9NO_dh2IECAGybMA07L3QWd_LWgqaduXmgBsnLANXy8-mXluQTcOnYgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgAnQaBAgQIECBAgQIJuHTuQTcu7qgYsGCBAgQIECBAgQIECA']
+		frames: ['oMWDEDDw8-mzLUy-Ogapo6oGDNBTy8EDJgyYA2TN01ZLmjI0RQIMCxh48eGDhZkWbFiRogQPFhksseJHizQg0KNixAgQIDRFAgaoEH9r_aqVmRBqQIGqBA9WGSSBqgerEGVKg1IECBAgNEUCBTwSf3_9rk4OkGpAg68GHXgZJoGqDrw0IdKDUgQIECACdBjUCBAgQIECBBNw6dyCdl780E3Lu6oECBAgQIECBAgQIAJ0GNQIECBAgQIEE3Dp3IJ2XvzQTcu7qgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECAENQIEEKFDQIECBAgQIECBAgQIECBBJ3ZMvDLuyZd3RAgQIAQ1AgQQoUNAgQIECBAgQIECBAgQIEEndky8Mu7Jl3dECBAgBsWLANNw6dyCdl780CBAgQIAbFkwDVd2nplyIJendnyb9qAGyZMA1ffy2ZEE7L35oECBAgBsmLANJ5ZdmHdkQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgBDUCBBX38tmRAgQIECBAgQIECBAgQVMuPRu37N-fygQIECAENQIEFffy2ZMOxAgQIECBAgQIECBBUy49G7fs35_KBAgQIAbFmwDRevLfuy9-aBAgQIECAGxbMA1TRlQUsufTz6ZeSBAgBsWjANSy9emXlzQIECBAgQIAbFuwDVsvLT08oKfTfiQIECAGyYMA0frh5ZNOHcgQIECBAgBsXDANT2YeejJv6IECBAgQIAbJuwDTsvdBZ38taCpp25eaAGyZsA0KFDQVMuPRu37N-fygBoECAMgQIECBAgQIECBAgQIAaBAgDIECBAgQIECBAgQIECBAgQIAUjrt39eSBAgQIECBAgQIECAFSy59O_dh2IECBAgQIAbJqwDTsvfn00ddvBAgQIECAGycMA1TRlQTsPTTv3YdiBAgBoECAMgQIECBAgQIECBAgQIAbJywDV8vPpl5bkE3Dp2IECBAgQIECBAgQIECBAgQIECBAgBsmzANOy90Fnfy1oKmnbl5oECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgAnQaBAgQIECBAgQIJuHTuQTcu7qgYsGCBAgQIECBAgQIECA']
 	},
 	{
 		number: '110',
@@ -51,18 +51,18 @@ const menuPages = [
 			'\x17\x6a\x20\x24\x7a\x6a\x20\x24\x7a\x6a\x20\x74\x7a\x14\x1d\x13\x6a\x64\x6e\x68\x73\x34\x35\x7d\x7a\x20\x7d\x7a\x6a\x73\x6a\x30\x35\x7a\x6a\x73\x20\x20\x20\x20' +
 			'\x17\x6a\x70\x71\x7a\x6a\x70\x71\x7a\x6a\x70\x71\x7a\x14\x1d\x13\x2a\x20\x2a\x2a\x20\x25\x25\x25\x2b\x20\x25\x2b\x2a\x2c\x20\x2d\x29\x25\x28\x2e\x20\x20\x20\x20',
 		footerPrefix: TEXT_BLUE + NEW_BACKGRD + TEXT_WHITE,
-		articleCopy: '#page div.story-body__inner>p'
+		articleCopy: '#page div.story-body__inner>p,div[data-component="text-block"]>div'
 	},
 	{
 		number: '120',
 		feed: 'http://www.independent.co.uk/news/rss',
-		name: 'Independent Top News',
+		name: 'Independent UK',
 		masthead:
 			'\x11\x60\x7c\x77\x7d\x74\x17INDEPENDENT                      ' +
 			'\x11\x6a\x7f\x34\x7f\x7f\x17\x3d\x38\x35\x76\x79\x6a\x6a\x74\x35\x6a\x74\x35\x77\x31\x6d\x6a\x68\x25\x77\x31             ' +
 			'\x11\x22\x2f\x7c\x3e\x27\x17\x25\x21\x25\x25\x2a\x2a\x2a\x22\x25\x2a\x22\x25\x2d\x24\x22\x27\x27\x20\x2c\x25             ',
 		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
-		articleCopy: '#main div.body-content>p'
+		articleCopy: '#main p'
 	},
 	{
 		number: '130',
@@ -83,17 +83,6 @@ const menuPages = [
 			'\x11\x1a p,d0\x17\x19p0`p` 0pp0p0p0 p\x07              ' + 
 			'\x11\x1ah564}\x17\x19u:j,j 5 5 =$u:*d\x07              ' + 
 			'\x11\x1a -r8%\x17\x19%)*,",! % -$%)(&\x07TOP NEWS      ',
-		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
-		articleCopy: 'div.StandardArticleBody_body>p'
-	},
-	{
-		number: '150',
-		feed: 'http://feeds.reuters.com/reuters/oddlyEnoughNews',
-		name: 'Reuters Oddly Enough',
-		masthead:
-			'\x11\x1a p,d0\x17\x19p0`p` 0pp0p0p0 p\x07              ' + 
-			'\x11\x1ah564}\x17\x19u:j,j 5 5 =$u:*d\x07              ' + 
-			'\x11\x1a -r8%\x17\x19%)*,",! % -$%)(&\x07ODDLY ENOUGH  ',
 		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
 		articleCopy: 'div.StandardArticleBody_body>p'
 	},
@@ -131,17 +120,6 @@ const menuPages = [
 		articleCopy: 'div.body div.p'
 	},
 	{
-		number: '190',
-		feed: 'http://www.independent.co.uk/news/science/rss',
-		name: 'Independent - Science',
-		masthead:
-			'\x11`|w}t\x17INDEPENDENT                      ' + 
-			'\x11j\x7f4\x7f\x7f\x17w16#jjsjt56#js                   ' + 
-			'\x11"/|>\x27\x17,%),**,*"%),*,                   ',
-		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
-		articleCopy: '#main div.body-content>p'
-	},
-	{
 		number: '200',
 		feed: 'https://www.theguardian.com/uk/rss',
 		name: 'The Guardian',
@@ -150,7 +128,7 @@ const menuPages = [
 			'\x04\x1d\x17\x7f(|&\x7f"\x7f`a} k7i\x27k5|`a}"\x7fk5            ' + 
 			'\x04\x1d\x17",\x27 +&\x27"\x27/$.%"-+)/"\x27/,/*-            ',
 		footerPrefix: TEXT_BLUE + NEW_BACKGRD + TEXT_WHITE,
-		articleCopy: 'div.content__article-body>p'
+		articleCopy: 'div.content__article-body>p,div.content__article-body>p,div.article-body-commercial-selector>p'
 	},
 	{
 		number: '210',
@@ -172,7 +150,7 @@ const menuPages = [
 			'\x17j $zj $zj tz\x14\x1d\x13j05jh#4w$5ji }zjsj05zjs ' + 
 			'\x17jpqzjpqzjpqz\x14\x1d\x13 -)%\x22,!%%-*& %+*, -)%(. ',
 		footerPrefix: TEXT_BLUE + NEW_BACKGRD + TEXT_WHITE,
-		articleCopy: '#page div.story-body__inner>p'
+		articleCopy: '#page div.story-body__inner>p,div[data-component="text-block"]>div'
 	},
 	{
 		number: '230',
@@ -183,18 +161,7 @@ const menuPages = [
 			'\x17j $zj $zj tz\x14\x1d\x13k!w16!uz }zjsj05zjs     ' +
 			'\x17jpqzjpqzjpqz\x14\x1d\x13* -$)$%* %+*, -)%(.     ',
 		footerPrefix: TEXT_BLUE + NEW_BACKGRD + TEXT_WHITE,
-		articleCopy: '#page div.story-body__inner>p'
-	},
-	{
-		number: '240',
-		feed: 'http://www.independent.co.uk/news/uk/politics/rss',
-		name: 'Independent Politics',
-		masthead:
-			'\x11`|w}t\x17INDEPENDENT                      ' + 
-			'\x11j\x7f4\x7f\x7f\x17w9h#45 5#7!56#js                 ' + 
-			'\x11\x22/|>\'\x17% \x22,!-$% % %),(.                 ',
-		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
-		articleCopy: '#main div.body-content>p'
+		articleCopy: '#page div.story-body__inner>p,div[data-component="text-block"]>div'
 	},
 	{
 		number: '250',
@@ -205,7 +172,7 @@ const menuPages = [
 			'\x01\x1d\x17\x1a7~j,%mjh%)l j j#45jj#7ij#4          ' + 
 			'\x01\x1d\x17\x1a!" # "## #! " " !"!" !"j#           ',
 		footerPrefix: TEXT_RED + NEW_BACKGRD + TEXT_WHITE,
-		articleCopy: 'div.tve-tl-cnt-wrap>p'
+		articleCopy: 'div.entry-content>p'
 	},
 	{
 		number: '260',
@@ -341,8 +308,15 @@ const fetchPage = (pageNumber) => {
 		} else {
 			const $ = cheerio.load(body);
 			const paragraphs = $(menuPage.articleCopy);
-			$(paragraphs).each((i, paragraph) => {
-				const lines = format.getLines($(paragraph).text(), 39, null, format.justifyTypes.LEFT_JUSTIFY);
+			if (!paragraphs.length) {
+				console.log(`Couldn't find paragraphs using selector ${menuPage.articleCopy} in the following source:`);
+				//console.log(body);
+				console.log(page.source);
+				contentLines.push(BLANK_LINE);
+				contentLines.push((TEXT_RED + '(article content not available)').padEnd(40));
+			}
+			$(paragraphs).each(function(i, paragraph) {
+				const lines = format.getLines($(this).text(), 39, null, format.justifyTypes.LEFT_JUSTIFY);
 				contentLines.push(BLANK_LINE);
 				for (let line of lines) {
 					contentLines.push(' ' + line);
@@ -433,7 +407,7 @@ const server = http.createServer((req, res) => {
 		res.end('{"error": "Frame not found"}');
 		return;
 	}
-	console.log(`Page has ${page.rawFrames.length} frames`);
+	console.log(`Page has ${page.rawFrames.length} frames, source: ${pages[pageNumber].source}`);
 	const currentDate = moment().format('ddd DD MMM Y' + TEXT_YELLOW + 'HH:mm.ss');
 	const header = `P${pageNumberStr}${TEXT_RED}CastleText${TEXT_CYAN}${currentDate}`;
 	const frames = page.rawFrames;
