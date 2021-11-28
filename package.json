@@ -10,11 +10,16 @@
   "author": "",
   "license": "GPL-3.0-only",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10",
     "davefeedread": "^0.5.11",
     "he": "^1.2.0",
     "iconv": "^2.3.5",
     "moment": "^2.24.0",
     "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.10",
+    "typescript": "^4.5.2"
   }
 }

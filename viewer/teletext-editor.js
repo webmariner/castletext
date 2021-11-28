@@ -118,15 +118,16 @@ var trace_size_y = 0;
 var trace_whole_area = 0; // Does the trace image fill the whole area?
 var trace_opacity = 1;
 
-var full_pix_scale = 2;
+var full_pix_scale = 4;
 		 // draw at a higher resolution than we display at, to
 				 // look better zoomed in.
 var pix_scale = full_pix_scale;
 		 // specifies how much to stretch the x direction.
 var aspect_ratios = [1, 1.1, 1.2, 1.22, 1.3, 1.33, 1.36, 1.4, 1.5, 1.75, 2];
-var current_ratio = 2; // index of aspect_ratios
+//var current_ratio = 2; // index of aspect_ratios
+var current_ratio = 2;
 var aspect_ratio = aspect_ratios[current_ratio];
-var pix_size = 1;
+var pix_size = 1.6;
 		 // If all the pixels are 1:1
 
 var active_export = 0;
