@@ -39,14 +39,18 @@ class TranslatedWebPage extends GeneratedPage {
                 axios.head(webUrl).then(response => {
                     if (response.headers['Last-Modified'] === TranslatedWebPage.webCache[webUrl].lastModified &&
                         response.headers['Etag'] === TranslatedWebPage.webCache[webUrl].etag) {
-                        return;
+                        TranslatedWebPage.populatePagesFromCache(webUrl);
                     } else {
                         TranslatedWebPage.fetchContent(webUrl);
                     }
                 }).catch(error => {
                     // Got an error from HEAD request, assume not allowed so don't try again
                     TranslatedWebPage.webCache[webUrl].headAllowed = false;
+                    TranslatedWebPage.populatePagesFromCache(webUrl);
                 });
+            } else {
+                // HEAD requests not allowed, just fetch the content from the website
+                TranslatedWebPage.fetchContent(webUrl);
             }
         } else {
             // Fetch this page for the first time
@@ -65,7 +69,6 @@ class TranslatedWebPage extends GeneratedPage {
                 // Did this URL work before? If so leave it be, stale is better than broken :)
                 if (cachePage.body) {
                     console.log('Keeping old copy');
-                    return;
                 } else {
                     cachePage.err = err;
                     console.log(err);
@@ -82,14 +85,19 @@ class TranslatedWebPage extends GeneratedPage {
                     cachePage.etag = resp.headers['Etag'];
                 }
             }
-            for (const page of pages) {
-                if (page && page instanceof TranslatedWebPage) {
-                    if (page.webUrl === webUrl) {
-                        page.handleContent(cachePage.err, cachePage.body);
-                    }
+            TranslatedWebPage.populatePagesFromCache(webUrl);
+        });
+    }
+
+    private static populatePagesFromCache(webUrl) {
+        let cachePage = TranslatedWebPage.webCache[webUrl];
+        for (const page of pages) {
+            if (page && page instanceof TranslatedWebPage) {
+                if (page.webUrl === webUrl) {
+                    page.handleContent(cachePage.err, cachePage.body);
                 }
             }
-        });
+        }
     }
     readonly webUrl:string;
     readonly headline:string;
