@@ -3,7 +3,7 @@ const http = require('http');
 const url = require('url');
 const fs = require('fs');
 const { Page, StaticPage, FrameFormat } = require('./page');
-const staticPages = require('./config/static_pages.json');
+const staticPages = require('./static_pages.json');
 const { fetchFeeds } = require('./newsfeeds');
 const { fetchListings } = require('./channelfeeds');
 
