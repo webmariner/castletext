@@ -23,7 +23,7 @@ staticPages.forEach((pageConfig) => {
 
 const fetchThings = () => {
 	fetchFeeds(registerPage);
-	fetchListings(registerPage);
+	//fetchListings(registerPage);
 };
 fetchThings();
 setInterval(fetchThings, 300000);

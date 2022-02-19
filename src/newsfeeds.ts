@@ -1,12 +1,12 @@
-import * as parser from 'davefeedread';
-import * as he from 'he';
+import parser from 'davefeedread';
+import he from 'he';
 import axios from 'axios';
-import * as request from 'request';
-import cheerio from 'cheerio';
+import request from 'request';
+import { parse } from 'node-html-parser';
 import { GeneratedPage, Page, PageTemplate } from './page';
 import * as format from './format';
-import * as codes from './teletext_codes';
-import * as feedPageConfig from './config/feed_pages';
+import codes from './teletext_codes.json';
+import feedPageConfig from './feed_pages.json';
 
 let pages = [];
 
@@ -126,8 +126,8 @@ class TranslatedWebPage extends GeneratedPage {
             this.addContentLine(codes.BLANK_LINE);
             this.addContentLine((codes.TEXT_RED + '(article content not available)').padEnd(40));
         } else {
-            const $ = cheerio.load(body);
-            const paragraphs = $(this.articleCopySelector);
+            const root = parse(body);
+            const paragraphs = root.querySelectorAll(this.articleCopySelector);
             if (!paragraphs.length) {
                 console.log(`Couldn't find paragraphs using selector ${this.articleCopySelector} in the following source:`);
                 //console.log(body);
@@ -136,9 +136,9 @@ class TranslatedWebPage extends GeneratedPage {
                 this.addContentLine((codes.TEXT_RED + '(article content not available)').padEnd(40));
             }
             const that = this;
-            $(paragraphs).each(function(i, paragraph) {
-                const isListItem = $(this)[0].name === 'li';
-                const lines = format.getLines($(this).text(), isListItem? 37:39, null, format.Justification.Left);
+            paragraphs.forEach(function(tag) {
+                const isListItem = tag.tagName === 'LI';
+                const lines = format.getLines(tag.text, isListItem? 37:39, null, format.Justification.Left);
                 that.addContentLine(codes.BLANK_LINE);
                 lines.forEach((line, index) => {
                     var prefix = '';
@@ -211,7 +211,7 @@ const feedPageGenerators:[RSSFeedPageGenerator] = feedPageConfig.map(feedConfig 
         new PageTemplate(feedConfig.name, feedConfig.masthead, feedConfig.footerPrefix) :
         new PageTemplate(feedConfig.name);
     return new RSSFeedPageGenerator(template, feedConfig.number, feedConfig.name, feedConfig.feed, feedConfig.articleCopy, sectionParent);
-});
+}) as [RSSFeedPageGenerator];
 
 let registerPage = page => {
     console.log('Not available yet');

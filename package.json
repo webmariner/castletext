@@ -12,11 +12,10 @@
   "license": "GPL-3.0-only",
   "dependencies": {
     "axios": "^0.21.1",
-    "cheerio": "^1.0.0-rc.10",
     "davefeedread": "^0.5.11",
     "he": "^1.2.0",
-    "iconv": "^2.3.5",
     "moment": "^2.24.0",
+    "node-html-parser": "^5.2.0",
     "request": "^2.88.2"
   },
   "devDependencies": {

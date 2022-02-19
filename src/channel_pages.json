@@ -1,0 +1,231 @@
+{
+    "tvhBaseUrl": "http://localhost:9981",
+    "credentials": "username:password",
+    "channels": [
+	{
+		"number": "301",
+		"name": "BBC One",
+		"tvhChannel": "c84b98a9ead573bcb45e503606959cf8",
+		"masthead": "\u0016`ppp`ppp`ppp\u0014||||||||||||||||||||||||||\u0016j $zj $zj tz\u0014\u001d\u00176#4=#4vy                \u0016jpqzjpqzjpqz\u0014\u001d\u0017),!% %),                "
+	},
+	{
+		"number": "302",
+		"name": "BBC Two",
+		"tvhChannel": "418573e015002f2a70c4b4b4ce19e617",
+		"masthead": "\u0016`ppp`ppp`ppp\u0014||||||||||||||||||||||||||\u0016j $zj $zj tz\u0014\u001d\u0017#7!e`e`%6#4             \u0016jpqzjpqzjpqz\u0014\u001d\u0017 % \"&\"& ),!             "
+	},
+	{
+		"number": "303",
+		"name": "ITV",
+		"tvhChannel": "5b55e7bc09d4513e8226acc903233fee",
+		"masthead": "\u0016`0`0                                   \u0016b1zu0t x                               \u0016*unu8o|%                               "
+	},
+	{
+		"number": "304",
+		"name": "Channel 4",
+		"tvhChannel": "adc19ec8931c5a8907a8c3fcda97c7ad",
+		"masthead": "\u0011 `n5                                   \u0012xwzu0                                  \u0013  zu                                   "
+	},
+	{
+		"number": "305",
+		"name": "Channel 5",
+		"tvhChannel": "1adf556c352c681ace502a2405874c66"
+	},
+	{
+		"number": "306",
+		"name": "Dave",
+		"tvhChannel": "ebbb69cd0080baa3954ba7988122b722"
+	},
+	{
+		"number": "307",
+		"name": "Drama",
+		"tvhChannel": "3219a00f0b9506e829a6db95f579aad0"
+	},
+	{
+		"number": "308",
+		"name": "E4",
+		"tvhChannel": "38e71bc01495b9d3b7feb9e5cec59452"
+	},
+	{
+		"number": "309",
+		"name": "More 4",
+		"tvhChannel": "8ea164421cf7c34d4f0ff9bac9cb8ad0"
+	},
+	{
+		"number": "310",
+		"name": "Really",
+		"tvhChannel": "0f3f5a851d7f88bfeeb5aef57861f18c"
+	},
+	{
+		"number": "311",
+		"name": "ITV4",
+		"tvhChannel": "5f5c50aa117a4f867a71520ee323998d"
+	},
+	{
+		"number": "312",
+		"name": "BBC News",
+		"tvhChannel": "73bb377da0408246c83413326bf261d5"
+	},
+	{
+		"number": "313",
+		"name": "BBC Parliament",
+		"tvhChannel": "717ea5c5f8546513d0934e517f31d5f1"
+	},
+	{
+		"number": "314",
+		"name": "Sky News",
+		"tvhChannel": "e80f6912ea3e7de13947013b1fc2fbb8"
+	},
+	{
+		"number": "315",
+		"name": "BBC Four",
+		"tvhChannel": "0265d268fa031171b3ec94fae2886ed7",
+		"masthead": "\u0016`ppp`ppp`ppp\u0014||||||||||||||||||||||||||\u0016j $zj $zj tz\u0014\u001d\u0016w16ij 5w9               \u0016jpqzjpqzjpqz\u0014\u001d\u0016% )&\",!%*               "
+	},
+	{
+		"number": "316",
+		"name": "Sky Arts",
+		"tvhChannel": "9a5cd9ec98dbc9185adf532b3eafdfb9",
+		"masthead": "\u0016   4    \u0015      4                       \u0016fs!u&d`&\u0015\"s4j&!7!f!                    \u0016,,!%)`\u0027 \u0015\",%*  )$,!                    "
+	},
+	{
+		"number": "317",
+		"name": "Film4",
+		"tvhChannel": "c27ef3778a6ba87a812871d9f785d4a8"
+	},
+	{
+		"number": "318",
+		"name": "Food Network",
+		"tvhChannel": "d26d41e5451f70e071b6003c0bee7047"
+	},
+	{
+		"number": "319",
+		"name": "5 Select",
+		"tvhChannel": "6023d95e53c95051f19529cb5a8a9d25"
+	},
+	{
+		"number": "320",
+		"name": "Yesterday",
+		"tvhChannel": "a28a9cc30576af2905594490205952ac"
+	},
+	{
+		"number": "321",
+		"name": "TalkingPictures",
+		"tvhChannel": "462ca218cc52fdf08740ecd27a0dc4bc"
+	},
+	{
+		"number": "322",
+		"name": "GREAT! movies",
+		"tvhChannel": "76ac0dd5b6ff1512b554cae930e1c4bd"
+	},
+	{
+		"number": "323",
+		"name": "GREAT! movies action",
+		"tvhChannel": "2f645aef77dcb08791ddc3ccc10c748c"
+	},
+	{
+		"number": "324",
+		"name": "GREAT! movies classic",
+		"tvhChannel": "124e8dfba799142e8093ea45f5e7a5d7"
+	},
+	{
+		"number": "325",
+		"name": "GREAT! tv",
+		"tvhChannel": "6c2a3c64d795bbf57d44e5ac0c40fa7c"
+	},
+	{
+		"number": "326",
+		"name": "5 USA",
+		"tvhChannel": "65bbabf7caeae4f1a9ce1a8cbb841138"
+	},
+	{
+		"number": "327",
+		"name": "Paramount",
+		"tvhChannel": "ae9aec9388da78e57325d55111e4b042"
+	},
+	{
+		"number": "328",
+		"name": "CBS Justice",
+		"tvhChannel": "42790bd2218e8e01b71d6f9bfcd03d11"
+	},
+	{
+		"number": "329",
+		"name": "Smithsonian",
+		"tvhChannel": "4626ee5caf217bb12d87d8c1ac0cf72c"
+	},
+	{
+		"number": "330",
+		"name": "CBS Reality",
+		"tvhChannel": "2c1dcf916b7fdda9be0607850b266dcc"
+	},
+	{
+		"number": "331",
+		"name": "CBBC",
+		"tvhChannel": "67c3559c72799838f21a0161369cca0b"
+	},
+	{
+		"number": "332",
+		"name": "CBeebies",
+		"tvhChannel": "65111e6537b6e5160998b0f4b5955c35"
+	},
+	{
+		"number": "333",
+		"name": "CITV",
+		"tvhChannel": "d88737f0b7fb488b9ca2a5adff51a4dc"
+	},
+	{
+		"number": "334",
+		"name": "Pop",
+		"tvhChannel": "8fc11499c99d89ce6d0e2e92d5c74067"
+	},
+	{
+		"number": "335",
+		"name": "Tiny Pop",
+		"tvhChannel": "0b3ff6419e1bd4b51f1e51c2e76db13b"
+	},
+	{
+		"number": "341",
+		"name": "BBC Radio 1",
+		"tvhChannel": "fe4127d63b4b17521f9bba3f9ff2c736"
+	},
+	{
+		"number": "342",
+		"name": "BBC Radio 2",
+		"tvhChannel": "327826fdc50a5c2ef2dd9423b60406a5"
+	},
+	{
+		"number": "343",
+		"name": "BBC Radio 3",
+		"tvhChannel": "37cee26f43eb43faeb053e0fb90f7890"
+	},
+	{
+		"number": "344",
+		"name": "BBC Radio 4",
+		"tvhChannel": "7a9fe24724e2f4aeaf71f12c1b40d618"
+	},
+	{
+		"number": "345",
+		"name": "BBC Radio 4 Extra",
+		"tvhChannel": "809eb83d944710a796ad0ffb78ce0f5c"
+	},
+	{
+		"number": "346",
+		"name": "BBC 6 Music",
+		"tvhChannel": "0c807500cd28a67ef0f5496e271fa7b0"
+	},
+	{
+		"number": "347",
+		"name": "BBC World Service",
+		"tvhChannel": "8c0454bcfc408ce288657f562a3f848e"
+	},
+	{
+		"number": "348",
+		"name": "BBC Radio 5 Live",
+		"tvhChannel": "4a40e8d1d9e4549c27e2f4b239c08adb"
+	},
+	{
+		"number": "349",
+		"name": "BBC Berkshire",
+		"tvhChannel": "1713c9b07e3a24653bb0841e667d19ea"
+	}
+]}

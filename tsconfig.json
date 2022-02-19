@@ -1,11 +1,16 @@
 {
     "compilerOptions": {
-        "target": "es2017",
+        "lib": ["es2021"],
+        "target": "es2021",
         "module": "commonjs",
+        "strict": false,
         "outDir": "./dist",
         "rootDir": "./src",
-        "esModuleInterop": false
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true
     },
-    "include": ["./src/*", "./config/*"],
+    "include": ["./src/*"],
     "exclude": ["./node_modules"]
 }

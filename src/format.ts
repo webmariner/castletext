@@ -1,6 +1,3 @@
-import {Iconv} from 'iconv';
-let iconv = new Iconv('UTF-8', 'ASCII//TRANSLIT');
-
 enum Justification {
     None,
     Left,
@@ -14,23 +11,31 @@ const justificationFunctions: (((line: string, maxLength: number) => string) | n
 
 const BASE_64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
 /*
-Encoding exceptions:
-See the BBC Micro manual Appendix A and p106/7 of ETSI EN 300 706
-https://ec.europa.eu/eip/ageing/standards/ict-and-communication/data/etsi-en-300-706_en
-
-Decimal		35	36	64	91	92	93	94	95	96	123	124	125	126
-Hex			23	24	40	5b	5c	5d	5e	5f	60	7b	7c	7d	7e
-ETSI Englsh	£	$	@	←	½	→	↑	#	‒	¼	‖	¾	÷
-1967 ASCII	#	$	@	[	\	]	^	_	`	{	|	}	~
-
-This maps UTF characters to their BBC Micro Mode 7 counterparts
+Encoding substitutions.
+This maps UTF8 characters to their BBC Micro Mode 7 counterparts
 where they differ from vanilla 1967 ASCII (e.g. the BBC Micro uses the
-codepoint of ASCII # for the UK pound sign £). Hoping iconv will cope with
-everything else!
+codepoint of ASCII # for the UK pound sign £) or aren't directly
+convertible.
 */
-const exceptions = {
+const substitutions = {
 	'€': 'EUR',
 	'¥': 'JPY',
+    '°': 'deg',
+    '®': '(R)',
+    '©': '(C)',
+    'Å': 'Aa',
+    'å': 'aa',
+    'Æ': 'Ae',
+    'æ': 'ae',
+    'Ĳ': 'Ij',
+    'ĳ': 'ij',
+    'Œ': 'Oe',
+    'Ø': 'Oe',
+    'œ': 'oe',
+    'ø': 'oe',
+    'ß': 'ss',
+    'Þ': 'Th',
+    'þ': 'th',
 	'μ': 'u',
 	'‐': '-',
 	'‑': '-',
@@ -118,36 +123,42 @@ const getLines = (utf8Text: string, lineMaxLength: number, maxLines: number, jus
 }
 
 /*
-Transcodes UTF-8 text (such as might be fetched from web/RSS feeds) to text for BBC Micro display mode 7.
-
-BBC Mode 7 VDU Codes 128 (\x80) to 255 (\xff) are written to the display RAM as byte values 0 (\x00) to 127 (\x7f)
-The control codes shown for VDU 128-159 map to control codes 0 - 31 (\x1f) in ETSI EN 300 706, and VDU 160-255 map
-exactly to ETSI's Latin G0 character set (English option subset). However not all ETSI control codes are
-implemented by the BBC Micro (e.g. VDU 128 / ETSI 0) doesn't give black text), and MODE 7 VDU codes 32 - 126 don't
-all directly map to the codepoint of the same number in ETSI. Also the VDU codes 0 to 31 (\x1f) and 127 (\x7f), as
-with ASCII, are very different control codes from those used in videotex/teletext and are interpreted directly by
-the host OS rather than necessarily ending up encoded directly into display RAM.
-
-The upshot of all this is that all valid MODE 7 display RAM values fit into 7 bits, with the MSb in the byte not
-being used.
+Transcodes UTF-8 text (such as might be fetched from web/RSS feeds) to text for BBC Micro display mode 7. Only
+outputs printable characters, not control, colour or graphics codes.
 */
 const transcodeUtf8ToBeeb = (inputText: string): string => {
-    let beebVersion = "";
-    for (let char of inputText.normalize('NFKD')) {
-        if (exceptions[char]) {
-            beebVersion += exceptions[char];
-        } else {
-            try {
-                beebVersion += iconv.convert(char);
-            } catch (error) {
-                //These crop up a lot :) commenting out for now...
-                //console.error(`Hit a problem trying to convert the text: ${inputText}`);
-                //console.error(error);
-                //console.error(`Character: ${char}, codepoint ${char.charCodeAt(0).toString(16)}`)
+    const normalisedInput = inputText.normalize('NFKC');
+    let outputCharBuffers = [] as Buffer[];
+    for (let utfChar of normalisedInput) {
+        let outputBytes = Buffer.from(utfChar);
+        if (substitutions[utfChar]) {
+            outputBytes = Buffer.from(substitutions[utfChar]);
+        } else if (outputBytes.length > 1) {
+            // We have a chonky UTF8 character which we haven't found a known substitution
+            // for. The only characters we will still try to translate at this point are
+            // latin ones with diacritics e.g. ē to e.
+
+            // This did used to use iconv, but it was more hassle than it was worth in this
+            // situation given the native dependency and that it doesn't directly support
+            // our antiquated target charset ;) iconv-lite doesn't do even basic latin
+            // transliteration, so just switching from composed to decomposed form and then
+            // stripping diacritics here directly instead. More complex substitutions like
+            // æ to ae are already handled above.
+            outputBytes = Buffer.from(utfChar.normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+            // If we still don't have an ETSI-friendly 1-byte character, use a
+            // space instead
+            if (outputBytes.length > 1 || outputBytes[0] > 126 || outputBytes[0] < 32) {
+                outputBytes = Buffer.from([0x20]);
             }
         }
+        outputCharBuffers.push(outputBytes);
     }
-    return beebVersion;
+    const outputBuffer = Buffer.concat(outputCharBuffers);
+    let beebString = '';
+    for (let outChar of outputBuffer) {
+        beebString += String.fromCharCode(outChar);
+    }
+    return beebString;
 };
 
 /*
@@ -178,11 +189,7 @@ const b64ToMode7RAM = (frame: string): string => {
 };
 
 /*
-Writes out a raw memory frame as base-64. 6x7-bit raw source characters will give
-exactly 7xbase-64 characters, equating to a chunk of 42 bits.
-
-ETSI bits 012345601234560123456012345601234560123456... SOURCE
-b64  bits 012345012345012345012345012345012345012345... OUTPUT
+Writes out a raw memory frame as base-64.
 */
 const rawToB64 = (raw: string): string => {
     let sextets = [];

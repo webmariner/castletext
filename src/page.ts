@@ -1,5 +1,5 @@
-import * as moment from 'moment';
-import * as codes from './teletext_codes';
+import moment from 'moment';
+import * as codes from './teletext_codes.json';
 import { b64ToMode7RAM, rawToB64, rawToJsStringLiteral } from './format';
 
 enum FrameFormat {

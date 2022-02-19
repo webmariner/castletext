@@ -1,10 +1,10 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import { GeneratedPage, Page, PageTemplate } from './page';
 import * as format from './format';
-import * as codes from './teletext_codes';
-import * as channelPageConfig from './config/channel_pages';
+import codes from './teletext_codes.json';
+import channelPageConfig from './channel_pages.json';
 
 class TVHListingsPage extends GeneratedPage {
     channelId:string;
@@ -93,13 +93,13 @@ const channelPages:[TVHListingsPage] = channelPageConfig.channels.map(channelCon
         new PageTemplate(channelConfig.name, channelConfig.masthead, codes.TEXT_BLUE + codes.NEW_BACKGRD + codes.TEXT_CYAN) :
         new PageTemplate(channelConfig.name);
     return new TVHListingsPage(channelConfig.number, sectionParent, template, channelConfig.name, channelConfig.tvhChannel);
-});
+}) as [TVHListingsPage];
 
-let registerPage = page => {
+let registerPage = (page: Page) => {
     console.log('Not available yet');
 }
 
-const fetchListings = (callback) => {
+const fetchListings = (callback:(page:Page) => void) => {
     registerPage = callback;
     console.log('Fetching programme listings...');
     channelPages.forEach((channelPage) => {
