@@ -25,13 +25,9 @@ git clone git@github.com:webmariner/castletext.git
 cd castletext
 ```
 
-## Enabling the TV Listings pages
-
-If you use TV Headend, you can update the channel pages JSON file with the URL and credentials of your TVH server and your channel IDs to match the channel names. Then uncomment the fetchListings call in the fetchThings() function in index.js. If you want to use different channels, you would also need to update the static frame for the listings menu page.
-
 ## Running the server
 
-You can run the server locally if you either have node.js installed or if you have an application container tool like [Podman](http://docs.podman.io/en/latest/) or Docker installed. Running it as a container means you won't have to worry about what version of node you have installed or any possible compatibility issues with the libraries I've used. On the other hand, if you already have node installed or want to use it for other things too, then you can probably save yourself some downloads 😉
+You can run the server locally if you either have node.js version 8 or later installed, or if you have an application container tool like [Podman](http://docs.podman.io/en/latest/) or Docker installed. Running it as a container means you won't have to worry about what version of node you have installed or any possible compatibility issues with the libraries I've used. On the other hand, if you already have node 8+ installed or want to use it for other things too, then you can probably save yourself some downloads 😉
 
 Once you've decided whether to use node or a container tool to run it, on Linux you can use your usual package manager like apt or yum to install one or the other. On macOS the fabulous [Homebrew](https://brew.sh/) will do the trick with either `brew install node` or `brew cask install podman`.
 
@@ -41,7 +37,7 @@ To run it using the node/npm installation on your machine:
 
 ```
 npm install
-node index.js
+npm start
 ```
 
 then point your web browser to localhost:1700
@@ -56,6 +52,10 @@ podman run -p 1700:1700 -it castletext
 ```
 
 For those using Docker, I believe replacing 'podman' with 'docker' in the above commands should still work.
+
+## Enabling the TV Listings pages
+
+If you use [TV Headend](https://tvheadend.org/), you can update the channel pages JSON file with the URL and credentials of your TVH server and your channel IDs to match the channel names. Then uncomment the fetchListings call in the fetchThings() function in index.js. If you want to use different channels, you would also need to update the static frame for the listings menu page.
 
 ## Meta-news
 

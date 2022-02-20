@@ -7,7 +7,8 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "start": "mkdir -p ./dist;cp -R ./viewer/ ./dist/;tsc;node ./dist/index.js",
+    "build": "mkdir -p ./dist;cp -R ./viewer/ ./dist/;tsc;",
+    "start": "node ./dist/index.js",
     "clean": "rm -rf ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
