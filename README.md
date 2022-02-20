@@ -37,6 +37,7 @@ To run it using the node/npm installation on your machine:
 
 ```
 npm install
+npm run build
 npm start
 ```
 
