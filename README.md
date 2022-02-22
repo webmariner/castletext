@@ -4,6 +4,8 @@
 
 This project lets you browse content such as news and TV listings in [Teletext](https://en.wikipedia.org/wiki/Teletext) format, either in a web browser, or for extra nostalgia value, on a [BBC Master Series computer](https://en.wikipedia.org/wiki/BBC_Master) equipped with [Robert Sprowson's Ethernet module](http://www.sprow.co.uk/bbc/masternet.htm).
 
+![teletext menu screenshot](docs/menu.png)
+
 ## How to use it
 
 The server runs on a PC or Mac with Internet access running Node.JS. This server provides any connecting web browsers with the client to allow you to request and view the Teletext pages.
