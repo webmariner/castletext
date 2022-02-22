@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "James Timmons",
   "license": "GPL-3.0-only",
   "dependencies": {
     "axios": "^0.21.1",

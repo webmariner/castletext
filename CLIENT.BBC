@@ -1,0 +1,201 @@
+   10 REM Setup
+   20 MODE 7
+   30 DIM ipaddrblk% 16
+   40 DIM wordblk% 32
+   50 DIM nameblk% 256
+   60 DIM tempblk% 5
+   70 DIM httpsendblk% 256
+   80 DIM httprcvblk% 256
+   90 httpsendsize% = 27
+  100 httprcvsize% = 256
+  110 hexe$="0123456789abcdef"
+  120 hostname$="your server hostname here"
+  130 httpport% = 1700
+  140 dbg=FALSE
+  150 frame% = 0
+  160 page$ = ""
+  170 REM Main program
+  180 newpage$ = ""
+  190 *FX4,1
+  200 REPEAT
+  210   key$ = INKEY$(20)
+  220   IF key$ <> "" AND ASC(key$) > 47 AND ASC(key$) < 58 THEN newpage$ = newpage$ + key$
+  230   IF frame% > 0 AND ASC(key$) = 136 THEN newpage$ = page$:frame% = frame% - 1
+  240   IF frame% < 255 AND ASC(key$) = 137 THEN newpage$ = page$:frame% = frame% + 1
+  250 UNTIL LEN(newpage$) = 3
+  260 IF page$ <> newpage$ THEN frame% = 0
+  270 page$ = newpage$
+  280:
+  290 REPEAT
+  300   host%=FNgethost(hostname$+CHR$0)
+  310 UNTIL host%<>0
+  320 server%=FNreadword(FNreadword(host%!16))
+  330 IF dbg THEN PRINT"Resolved to "FNshowaddr(server%)
+  340:
+  350 REM Create a socket in protocol family 'internet' for streams
+  360 socketstream%=1
+  370 socketinet%=2
+  380 httpsock%=FNcreat(socketinet%,socketstream%,0)
+  390 IF httpsock%<0 THEN PRINT'"Couldn't get a socket":END
+  400:
+  410 REM Clear HTTP Receive memory block to zeroes
+  420 FOR count%=0 TO (httprcvsize%-1)
+  430   httprcvblk%?count%=0
+  440 NEXT
+  450:
+  460 REM Clear HTTP Send memory block to zeroes then set the request text
+  470 FOR count%=0 TO (httpsendsize%-1)
+  480   httpsendblk%?count%=0
+  490 NEXT
+  500 httpreqline$="GET /pages/"+page$+":"+STR$(frame%)+" HTTP/1.1"+CHR$13+CHR$10+CHR$13+CHR$10
+  510 httpsendsize%=LEN(httpreqline$)
+  520 $httpsendblk%=httpreqline$
+  530:
+  540 REM Open TCP/IP Socket, connect and send request
+  550 ipaddrblk%?0=16
+  560 ipaddrblk%?1=socketinet%
+  570 ipaddrblk%!2=FNendianswap16(httpport%)
+  580 ipaddrblk%!4=server%
+  590 ipaddrblk%!8=0
+  600 ipaddrblk%!12=0
+  610 IF FNconnect(httpsock%,ipaddrblk%,16)<0 THENPRINT"Couldn't connect to socket":PROCclose(httpsock%):END
+  620 IF FNsend(httpsock%,httpsendblk%,httpsendsize%,0)<=0 THENPRINT'"Couldn't send to socket":PROCclose(httpsock%):END
+  630:
+  640 REM Wait for a response back then close the connection
+  650 IF dbg THEN PRINT"Waiting for page frame"
+  660key$=INKEY$(50)
+  670 respsize%=FNrecv(httpsock%,httprcvblk%,httprcvsize%,8)
+  680 REM If we get an error code 30, it's just that the payload fits into one chunk
+  690 IF (respsize%=-1 AND ?(wordblk%+3)<>30) THENPRINT"Socket receive failed":PROCclose(httpsock%):GOTO180
+  700 IF respsize%=-1 THEN respsize%=httprcvsize%
+  710 IF dbg THEN PRINT"Got " respsize% " bytes."
+  720 REM Did we get a frame, or an error?
+  730 IF dbg PRINT LEFT$($httprcvblk%,15)
+  740 IF LEFT$($httprcvblk%,15)<>"HTTP/1.1 200 OK" THENPROCclose(httpsock%):CLS:PRINT"Page not found":GOTO180
+  750:
+  760 REM Find two contiguous CRLFs to find the start of the body (reversed in word literal format)
+  770 netpos%=0
+  780 REPEAT
+  790   IF dbg THEN PRINT"netpos ";netpos%;" value ";FNhex(?(httprcvblk%+netpos%))
+  800   netpos%=netpos%+1
+  810 UNTIL(netpos%>(respsize%-4) OR httprcvblk%!netpos%=&0A0D0A0D)
+  820 IF netpos%>(respsize%-4) THENCLS:PRINT"Invalid response from server":GOTO180
+  830 netpos%=netpos%+4
+  840 IF dbg THEN PRINT"First body byte at netpos ";netpos%
+  850:
+  860 REM netpos% is now the offset to the first HTTP body byte in the first network block
+  870 REM When the next network block is read, we'll need to set pos% back to zero
+  880 screen=&7C00
+  890 scrpos%=0
+  900 REPEAT
+  910   REPEAT
+  920     IF NOT dbg THEN screen?scrpos%=httprcvblk%?netpos%
+  930     IF dbg THEN PRINT"scrpos ";scrpos%;" netpos ";netpos%;" "+FNhex(?(httprcvblk%+netpos%))
+  940     scrpos%=scrpos%+1
+  950     netpos%=netpos%+1
+  960   UNTIL (scrpos%>999 OR netpos%>=respsize%)
+  970   IF dbg THEN PRINT"END BLOCK scr";scrpos%;" net";netpos%;" respsize";respsize%
+  980   netpos%=0
+  990   respsize%=FNrecv(httpsock%,httprcvblk%,httprcvsize%,8)
+ 1000   IF dbg PRINT"RCV: ";respsize%;" bytes, err code ";?(wordblk%+3)
+ 1010   IF(respsize%=-1 AND ?(wordblk%+3)=30) THEN respsize%=1000-scrpos%
+ 1020 UNTIL (scrpos%>999 OR respsize%<1)
+ 1030 PROCclose(httpsock%):httpsock%=-1:GOTO180
+ 1040:
+ 1050 REM Procedures
+ 1060 DEFFNhex(byte%)
+ 1070   LOCAL ret$
+ 1080   lsn%=byte%MOD16
+ 1090   msn%=byte%DIV16
+ 1100   ret$=MID$(hexe$,msn%+1,1)+MID$(hexe$,lsn%+1,1)
+ 1110   IF (byte% > 31 AND byte% < 127) THEN ret$=ret$+" "+CHR$(byte%)
+ 1120 =ret$
+ 1130:
+ 1140 DEFFNgethost(name$)
+ 1150   wordblk%?0=8:REM Parameters in
+ 1160   wordblk%?1=24:REM Parameters out
+ 1170   wordblk%?2=&41:REM Resolver_GetHost
+ 1180   wordblk%?3=0:REM No error on entry
+ 1190   wordblk%!4=nameblk%
+ 1200   $nameblk%=name$
+ 1210   A%=192:X%=wordblk%:Y%=wordblk% DIV256:CALL&FFF1
+ 1220   IF wordblk%?3<>0 THEN=0
+ 1230 =wordblk%+4:REM Address not value
+ 1240:
+ 1250 DEFFNshowaddr(addr%)
+ 1260   !tempblk%=addr%
+ 1270 =STR$(tempblk%?0)+"."+STR$(tempblk%?1)+"."+STR$(tempblk%?2)+"."+STR$(tempblk%?3)
+ 1280:
+ 1290 DEFFNcreat(pf%,type%,prot%)
+ 1300   wordblk%?0=16:REM Parameters in
+ 1310   wordblk%?1=8:REM Parameters out
+ 1320   wordblk%?2=&00:REM Socket_Creat
+ 1330   wordblk%?3=0:REM No error on entry
+ 1340   wordblk%!4=pf%
+ 1350   wordblk%!8=type%
+ 1360   wordblk%!12=prot%
+ 1370   A%=192:X%=wordblk%:Y%=wordblk% DIV256:CALL&FFF1
+ 1380   IF wordblk%?3<>0 THEN=-1
+ 1390 =wordblk%!4
+ 1400:
+ 1410 DEFFNconnect(handle%,addr%,addrlen%)
+ 1420   wordblk%?0=16:REM Parameters in
+ 1430   wordblk%?1=8:REM Parameters out
+ 1440   wordblk%?2=&04:REM Socket_Connect
+ 1450   wordblk%?3=0:REM No error on entry
+ 1460   wordblk%!4=handle%
+ 1470   wordblk%!8=addr%
+ 1480   wordblk%!12=addrlen%
+ 1490   A%=192:X%=wordblk%:Y%=wordblk% DIV256:CALL&FFF1
+ 1500   IF wordblk%?3<>0 THEN=-1
+ 1510 =wordblk%!4
+ 1520:
+ 1530 DEFFNrecv(handle%,data%,len%,opts%)
+ 1540   wordblk%?0=20:REM Parameters in
+ 1550   wordblk%?1=8:REM Parameters out
+ 1560   wordblk%?2=&05:REM Socket_Recv
+ 1570   wordblk%?3=0:REM No error on entry
+ 1580   wordblk%!4=handle%
+ 1590   wordblk%!8=data%
+ 1600   wordblk%!12=len%
+ 1610   wordblk%!16=opts%
+ 1620   A%=192:X%=wordblk%:Y%=wordblk% DIV256:CALL&FFF1
+ 1630   IF wordblk%?3<>0 THEN=-1
+ 1640 =wordblk%!4
+ 1650:
+ 1660 DEFFNsend(handle%,data%,len%,opts%)
+ 1670   wordblk%?0=20:REM Parameters in
+ 1680   wordblk%?1=8:REM Parameters out
+ 1690   wordblk%?2=&08:REM Socket_Send
+ 1700   wordblk%?3=0:REM No error on entry
+ 1710   wordblk%!4=handle%
+ 1720   wordblk%!8=data%
+ 1730   wordblk%!12=len%
+ 1740   wordblk%!16=opts%
+ 1750   A%=192:X%=wordblk%:Y%=wordblk% DIV256:CALL&FFF1
+ 1760   IF wordblk%?3<>0 THEN=-1
+ 1770 =wordblk%!4
+ 1780:
+ 1790 DEFFNreadword(addr%)
+ 1800   LOCALtemp%,data%
+ 1810   IF (addr% AND&FFFF0000)<>&FFFF0000 THEN=!addr%:REM Not IO memory
+ 1820   FORtemp%=3TO0STEP-1
+ 1830     !wordblk%=addr%+temp%:A%=5:X%=wordblk%:Y%=wordblk% DIV256:CALL&FFF1
+ 1840     tempblk%?temp%=wordblk%?4
+ 1850   NEXT
+ 1860 =!tempblk%
+ 1870:
+ 1880 DEFFNendianswap16(data%)
+ 1890   LOCALtemp%
+ 1900   !tempblk%=data% AND&FFFF
+ 1910   temp%=tempblk%?0:tempblk%?0=tempblk%?1:tempblk%?1=temp%
+ 1920 =!tempblk%
+ 1930:
+ 1940 DEFPROCclose(handle%)
+ 1950   wordblk%?0=8:REM Parameters in
+ 1960   wordblk%?1=4:REM Parameters out
+ 1970   wordblk%?2=&10:REM Socket_Close
+ 1980   wordblk%?3=0:REM No error on entry
+ 1990   wordblk%!4=handle%
+ 2000   A%=192:X%=wordblk%:Y%=wordblk% DIV256:CALL&FFF1
+ 2010 ENDPROC
