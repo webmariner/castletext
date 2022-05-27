@@ -204,7 +204,7 @@ class RSSFeedPageGenerator {
 
 // Until we figure out how to access other pages and whether to wire them using a parent attribute in the config files, hardcode a news
 // section home page for now...
-const sectionParent:Page = new Page('101', 'News main menu');
+const sectionParent:Page = new Page('500', 'UK & World News menu');
 
 const feedPageGenerators:[RSSFeedPageGenerator] = feedPageConfig.map(feedConfig => {
     const template = feedConfig.masthead && feedConfig.footerPrefix ?

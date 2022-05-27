@@ -43,7 +43,7 @@ class Page {
 
     getDisplayFrame(index:number, outputFormat:FrameFormat = FrameFormat.Mode7) {
         const currentDate = moment().format('ddd DD MMM Y' + codes.TEXT_YELLOW + 'HH:mm.ss');
-	    const header = `P${this.pageNumber}${codes.TEXT_RED}CastleText${codes.TEXT_CYAN}${currentDate}`;
+	    const header = `P${this.pageNumber}${codes.TEXT_MAGENTA}EMF-Ceefax${codes.TEXT_CYAN}${currentDate}`;
         const displayFrame = header + this.rawFrames[index];
         switch (outputFormat) {
             case FrameFormat.Mode7:

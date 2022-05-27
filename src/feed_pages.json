@@ -1,6 +1,6 @@
 [
 	{
-		"number":"110",
+		"number":"510",
 		"feed":"http://feeds.bbci.co.uk/news/rss.xml",
 		"name":"BBC Main News",
 		"masthead":
@@ -9,7 +9,7 @@
 		"articleCopy":"#page div.story-body__inner>p,div[data-component=\"text-block\"]>div,div[data-component$=\"list-block\"]>div li"
 	},
 	{
-		"number":"120",
+		"number":"520",
 		"feed":"http://www.independent.co.uk/news/rss",
 		"name":"Independent UK",
 		"masthead":
@@ -18,7 +18,7 @@
 		"articleCopy": "#main p"
 	},
 	{
-		"number": "130",
+		"number": "530",
 		"feed": "http://feeds.feedburner.com/euronews/en/home/",
 		"name": "Euronews",
 		"masthead":
@@ -27,7 +27,7 @@
 		"articleCopy": "div.c-article-content>p"
 	},
 	{
-		"number": "140",
+		"number": "540",
 		"feed": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=GB:en&hl=en-GB&gl=GB",
 		"name":"Reuters Top News",
 		"masthead":
@@ -36,34 +36,7 @@
 		"articleCopy":"article>div>div>div>div>p"
 	},
 	{
-		"number":"160",
-		"feed":"https://www.theregister.co.uk/headlines.atom",
-		"name":"Register Headlines",
-		"masthead":
-			"\u0001\u001d\u0017\u0020\u0020\u0038\u006f\u007d\u0030\u0020\u0007                             \u0001\u001d\u0017\u0060\u007c\u007d\u007f\u007f\u0021\u0030\u0007T H E   R E G I S T E R      \u0001\u001d\u0017\u006f\u0021\u0022\u007f\u007d\u003e\u0020\u0003biting the hand that feeds IT",
-		"footerPrefix":"\u0001\u001d\u0007",
-		"articleCopy":"#body>p"
-	},
-	{
-		"number":"170",
-		"feed":"https://www.theregister.co.uk/bootnotes/stob/headlines.atom",
-		"name":"Verity Stob Bootnotes",
-		"masthead":
-			"\u0001\u001d\u0017\u0020\u0020\u0038\u006f\u007d\u0030\u0020\u0007                             \u0001\u001d\u0017\u0060\u007c\u007d\u007f\u007f\u0021\u0030\u0007T H E   R E G I S T E R      \u0001\u001d\u0017\u006f\u0021\u0022\u007f\u007d\u003e\u0020\u0003Verity Stob's Bootnotes      ",
-		"footerPrefix":"\u0001\u001d\u0007",
-		"articleCopy":"#body>p"
-	},
-	{
-		"number":"180",
-		"feed":"http://rss.slashdot.org/Slashdot/slashdot",
-		"name":"Slashdot",
-		"masthead":
-			"\u0016\u001d\u0017 h?  \u0007S L A S H D O T                \u0016\u001d\u0017`\u007f!`0\u0007News for nerds,                \u0016\u001d\u0017~% o?\u0007stuff that matters             ",
-		"footerPrefix":"\u0006\u001d\u0007",
-		"articleCopy":"div.body div.p"
-	},
-	{
-		"number":"200",
+		"number":"550",
 		"feed":"https://www.theguardian.com/uk/rss",
 		"name":"The Guardian",
 		"masthead":
@@ -72,7 +45,34 @@
 		"articleCopy":"div.content__article-body>p,div.content__article-body>p,div.article-body-commercial-selector>p"
 	},
 	{
-		"number":"210",
+		"number":"560",
+		"feed":"https://www.theregister.co.uk/headlines.atom",
+		"name":"Register Headlines",
+		"masthead":
+			"\u0001\u001d\u0017\u0020\u0020\u0038\u006f\u007d\u0030\u0020\u0007                             \u0001\u001d\u0017\u0060\u007c\u007d\u007f\u007f\u0021\u0030\u0007T H E   R E G I S T E R      \u0001\u001d\u0017\u006f\u0021\u0022\u007f\u007d\u003e\u0020\u0003biting the hand that feeds IT",
+		"footerPrefix":"\u0001\u001d\u0007",
+		"articleCopy":"#body>p"
+	},
+	{
+		"number":"570",
+		"feed":"https://www.theregister.co.uk/bootnotes/stob/headlines.atom",
+		"name":"Verity Stob Bootnotes",
+		"masthead":
+			"\u0001\u001d\u0017\u0020\u0020\u0038\u006f\u007d\u0030\u0020\u0007                             \u0001\u001d\u0017\u0060\u007c\u007d\u007f\u007f\u0021\u0030\u0007T H E   R E G I S T E R      \u0001\u001d\u0017\u006f\u0021\u0022\u007f\u007d\u003e\u0020\u0003Verity Stob's Bootnotes      ",
+		"footerPrefix":"\u0001\u001d\u0007",
+		"articleCopy":"#body>p"
+	},
+	{
+		"number":"580",
+		"feed":"http://rss.slashdot.org/Slashdot/slashdot",
+		"name":"Slashdot",
+		"masthead":
+			"\u0016\u001d\u0017 h?  \u0007S L A S H D O T                \u0016\u001d\u0017`\u007f!`0\u0007News for nerds,                \u0016\u001d\u0017~% o?\u0007stuff that matters             ",
+		"footerPrefix":"\u0006\u001d\u0007",
+		"articleCopy":"div.body div.p"
+	},
+	{
+		"number":"590",
 		"feed":"https://www.independent.ie/rss/",
 		"name":"Irish Independent",
 		"masthead":
@@ -81,7 +81,7 @@
 		"articleCopy":"div.n-body1>p"
 	},
 	{
-		"number":"220",
+		"number":"610",
 		"feed":"http://feeds.bbci.co.uk/news/world/rss.xml",
 		"name":"BBC World News",
 		"masthead":
@@ -90,7 +90,7 @@
 		"articleCopy":"#page div.story-body__inner>p,div[data-component=\"text-block\"]>div"
 	},
 	{
-		"number":"230",
+		"number":"620",
 		"feed":"http://feeds.bbci.co.uk/news/technology/rss.xml",
 		"name":"BBC Tech News",
 		"masthead":
@@ -99,16 +99,7 @@
 		"articleCopy":"#page div.story-body__inner>p,div[data-component=\"text-block\"]>div"
 	},
 	{
-		"number":"250",
-		"feed":"https://newsthump.com/feed/",
-		"name":"Newsthump",
-		"masthead":
-			"\u0001\u001d\u0017\u001ath p 0  0`p(l,h                     \u0001\u001d\u0017\u001a7~j,%mjh%)l j j#45jj#7ij#4          \u0001\u001d\u0017\u001a!\" # \"## #! \" \" !\"!\" !\"j#           ",
-		"footerPrefix":"\u0001\u001d\u0007",
-		"articleCopy":"div.entry-content>p"
-	},
-	{
-		"number":"260",
+		"number":"630",
 		"feed":"https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
 		"name":"New York Times",
 		"masthead": "\u0014\u001d\u0017idi!80d``\"4i 000h  &y,a``` 808,!     \u0014\u001d\u0017k*~j,!jjj\"5jjjj\"j8!6*bhjkkj,!),0     \u0014\u001d\u0017. +\",&\"\u0027\u0027(sq\"&* *\"$\",!****\",&&,! MAIN",
@@ -116,7 +107,7 @@
 		"articleCopy":"div.StoryBodyCompanionColumn>div>p"
 	},
 	{
-		"number":"270",
+		"number":"640",
 		"feed":"https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
 		"name":"New York Times - World",
 		"masthead": "\u0014\u001d\u0017idi!80d``\"4i 000h  &y,a``` 808,!     \u0014\u001d\u0017k*~j,!jjj\"5jjjj\"j8!6*bhjkkj,!),0     \u0014\u001d\u0017. +\",&\"\u0027\u0027(sq\"&* *\"$\",!****\",&&,!WORLD",
@@ -124,13 +115,13 @@
 		"articleCopy":"div.StoryBodyCompanionColumn>div>p"
 	},
 	{
-		"number":"280",
+		"number":"650",
 		"feed":"https://www.thenational.scot/news/rss/",
 		"name":"The National (Scotland)",
 		"articleCopy":"div.article-body p"
 	},
 	{
-		"number":"290",
+		"number":"660",
 		"feed":"https://www.walesonline.co.uk/news/?service=rss",
 		"name":"Western Mail (Wales)",
 		"articleCopy":"div.article-body p"
