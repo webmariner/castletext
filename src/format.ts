@@ -96,6 +96,10 @@ const getLines = (utf8Text: string, lineMaxLength: number, maxLines: number, jus
                 // Bump the word down to the next line
                 lines.push(line);
                 line = '';
+                if (word.length > lineMaxLength) {
+                    words.unshift(word.substring(lineMaxLength-2));
+                    word = word.substring(0,lineMaxLength-2)+'-';
+                }
             }
         }
         line = line + ((line.length > 0) ? ' ' : '') + word;
