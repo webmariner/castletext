@@ -7,6 +7,7 @@ const staticPages = require('./static_pages.json');
 const { fetchFeeds } = require('./newsfeeds');
 const { fetchListings } = require('./channelfeeds');
 const { fetchSchedule } = require('./emfSchedule');
+const { fetchFilms } = require('./emfFilms');
 
 const hostname = 'localhost';
 const port = 1700;
@@ -26,6 +27,7 @@ const fetchThings = () => {
 	fetchFeeds(registerPage);
 	//fetchListings(registerPage);
 	fetchSchedule(registerPage);
+	fetchFilms(registerPage);
 };
 fetchThings();
 setInterval(fetchThings, 300000);
