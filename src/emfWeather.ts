@@ -41,12 +41,12 @@ const handleWeather = (weatherForecast) => {
         //TODO: is time UTC or BST?
 
         const description = capitalizeFirstLetter(forecast.weather[0].description);
-        const forecastDate = moment(forecast.dt*1000);
+        const forecastDate = moment((forecast.dt + weatherForecast.city.timezone) * 1000);
 
         weatherPage.addContentLine(format.getLines(codes.TEXT_GREEN + forecastDate.format('ddd DD MMM HH:mm'), 40, 1, format.Justification.Left)[0]);
         weatherPage.addContentLine(format.getLines(codes.TEXT_YELLOW + description, 40, 1, format.Justification.Left)[0]);
         weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Temp' + codes.TEXT_MAGENTA + Math.round(forecast.main.temp) + ' deg C', 40, 1, format.Justification.Left)[0]);
-        weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Feels like' + codes.TEXT_MAGENTA + Math.round(forecast.main.feels_like) + ' deg C', 40, 1, format.Justification.Left)[0]);        
+        weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Feels like' + codes.TEXT_MAGENTA + Math.round(forecast.main.feels_like) + ' deg C', 40, 1, format.Justification.Left)[0]);
         weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Cloud cover' + codes.TEXT_MAGENTA + forecast.clouds.all + '%', 40, 1, format.Justification.Left)[0]);
         weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Wind' + codes.TEXT_MAGENTA + Math.round(forecast.wind.speed * 3.6) + 'km/h' + ' (' + windDirection(forecast.wind.deg) + ')', 40, 1, format.Justification.Left)[0]);
 
