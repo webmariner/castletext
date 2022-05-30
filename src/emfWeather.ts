@@ -5,14 +5,27 @@ import { Page, GeneratedPage, PageTemplate } from './page';
 import * as format from './format';
 import codes from './teletext_codes.json';
 
-//TODO: put a weather icon in the header
+const weatherMasthead =
+    "\u0014\u001d\u0017  `0 \u0007Weather Forecast               " +
+    "\u0014\u001d\u0017x|\u007f\u007ft\u0005Ledbury, UK                    " +
+    "\u0014\u001d\u0017+///'                                ";
 
-const weatherMasthead = "\u0014\u001d\u0015 < \u0007Local Weather                    \u0014\u001d\u0017x}0\u0005                                 \u0014\u001d\u0017\u007fk5                                  ";
 const footerPrefix = "\u0014\u001d\u0007";
 
 //capitalize only the first letter of the string. 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+//get human-readable wind direction from degrees
+//https://stackoverflow.com/questions/61077150/converting-wind-direction-from-degrees-to-text
+function windDirection(degrees) {
+    
+    const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];      // Define array of directions
+    degrees = degrees * 8 / 360;                                          // Split into the 8 directions
+    degrees = Math.round(degrees);                                        // round to nearest integer
+    degrees = (degrees + 8) % 8;                                          // Ensure it's within 0-7
+    return directions[degrees]
 }
 
 const sectionParent:Page = new Page('100', 'EMF main menu');
@@ -31,11 +44,11 @@ const handleWeather = (weatherForecast) => {
         const forecastDate = moment(forecast.dt*1000);
 
         weatherPage.addContentLine(format.getLines(codes.TEXT_GREEN + forecastDate.format('ddd DD MMM HH:mm'), 40, 1, format.Justification.Left)[0]);
-        weatherPage.addContentLine(codes.DOUBLE_HEIGHT + format.getLines(codes.TEXT_YELLOW + description, 39, 1, format.Justification.Left)[0]);
-        weatherPage.addContentLine(format.getLines(codes.TEXT_YELLOW, 40, 1, format.Justification.Left)[0]);
-        weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Temp' + codes.TEXT_MAGENTA + Math.round(forecast.main.temp) + ' deg C', 40, 1, format.Justification.Left)[0]);        
+        weatherPage.addContentLine(format.getLines(codes.TEXT_YELLOW + description, 40, 1, format.Justification.Left)[0]);
+        weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Temp' + codes.TEXT_MAGENTA + Math.round(forecast.main.temp) + ' deg C', 40, 1, format.Justification.Left)[0]);
         weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Feels like' + codes.TEXT_MAGENTA + Math.round(forecast.main.feels_like) + ' deg C', 40, 1, format.Justification.Left)[0]);        
         weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Cloud cover' + codes.TEXT_MAGENTA + forecast.clouds.all + '%', 40, 1, format.Justification.Left)[0]);
+        weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Wind' + codes.TEXT_MAGENTA + Math.round(forecast.wind.speed * 3.6) + 'km/h' + ' (' + windDirection(forecast.wind.deg) + ')', 40, 1, format.Justification.Left)[0]);
 
         if (forecast.rain) {
             weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Chance of rain' + codes.TEXT_MAGENTA + Math.round(forecast.pop * 100) + '% (' + forecast.rain['3h'] + 'mm)', 40, 1, format.Justification.Left)[0]);           
@@ -44,8 +57,7 @@ const handleWeather = (weatherForecast) => {
             weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Chance of rain' + codes.TEXT_MAGENTA + Math.round(forecast.pop * 100) + '%', 40, 1, format.Justification.Left)[0]);
         }
         
-        weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Humidity' + codes.TEXT_MAGENTA + forecast.main.humidity + '%', 40, 1, format.Justification.Left)[0]);
-        //weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Visibility' + codes.TEXT_MAGENTA + forecast.visibility + 'm', 40, 1, format.Justification.Left)[0]);
+        weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE + ' Humidity' + codes.TEXT_MAGENTA + forecast.main.humidity + '%', 40, 1, format.Justification.Left)[0]);      
         weatherPage.addContentLine(format.getLines(codes.TEXT_WHITE, 40, 1, format.Justification.Left)[0]);
 
     })
