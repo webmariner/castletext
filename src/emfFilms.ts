@@ -5,7 +5,11 @@ import { Page, GeneratedPage, PageTemplate } from './page';
 import * as format from './format';
 import codes from './teletext_codes.json';
 
-const filmScreeningsMasthead = "\u0014\u001d\u0015 < \u0007Film Screenings                  \u0014\u001d\u0017x}0\u0005Stage C                          \u0014\u001d\u0017\u007fk5                                  ";
+const filmScreeningsMasthead =
+    "\u0014\u001d\u0017((,$$\u0007Film Screenings                " +
+    "\u0014\u001d\u0017bj\u007f51\u0005Stage C                        " +
+    "\u0014\u001d\u0017((,$$                                ";
+
 const footerPrefix = "\u0014\u001d\u0007";
 
 /**
