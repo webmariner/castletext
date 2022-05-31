@@ -32,6 +32,7 @@
 
 var defaultPage = location.search ? location.search.substring(1) : '100';
 var pagenum = defaultPage;
+var oldpage = defaultPage;
 var newpage = '';
 var framenum = 0;
 var editor = null;
@@ -73,6 +74,7 @@ function nav(code) {
 	if (newpage.length === 3) {
 		if (newpage !== pagenum) framenum = 0;
 		fetch_page(newpage + ':' + framenum.toString(10), editor);
+		oldpage = pagenum;
 		pagenum = newpage;
 		newpage = '';
 	}
@@ -82,6 +84,7 @@ function nav(code) {
 // e.g. '101:0' would be the first frame of page 101
 function fetch_page(pageNumberAsString, editor) {
 	var request = new Request('/pages/'+ pageNumberAsString +'?b64');
+	var success = false;
 	fetch(request)
 		.then(response => {
 			if (response.status !== 200) {
@@ -89,12 +92,22 @@ function fetch_page(pageNumberAsString, editor) {
 				alert(pageNumberAsString + ' - ' + response.statusText);
 				return;
 			} else {
+				success = true;
 				return response.text();
 			}
 		})
 		.then(text => {
-			editor.init_frame('frame');
-			editor.load('0:' + text);
+			if (success) {
+				editor.init_frame('frame');
+				editor.load('0:' + text);
+			} else {
+				for (var i = 0; i < 3; i++) {
+					pagenum = oldpage;
+					newpage = '';
+					editor.put_char(i+1,0,oldpage.charCodeAt(i),1);
+					editor.redraw();
+				}
+			}
 		});
 }
 </script>
@@ -115,7 +128,6 @@ body {
 }
 div#a {
 	display: table;
-	position: fixed;
 	top: 0; left: 0;
 	height: 100%;
 	width: 100%;
@@ -138,7 +150,7 @@ div.b {
 	border-spacing: 5em;
 }
 
-#keypad td {
+#keypad td button {
 	color: #fff;
 	background-color: #000;
 	font-family: Arial, Helvetica, sans-serif;
@@ -186,10 +198,10 @@ div.b {
 <canvas id="frame" width="960" height="1000" style="width: 1920px; height: 2000px;"></canvas>
 </div>
 <div><table id="keypad">
-	<tr><td onclick="nav(49)">1</td><td onclick="nav(50)">2</td><td onclick="nav(51)">3</td></tr>
-	<tr><td onclick="nav(52)">4</td><td onclick="nav(53)">5</td><td onclick="nav(54)">6</td></tr>
-	<tr><td onclick="nav(55)">7</td><td onclick="nav(56)">8</td><td onclick="nav(57)">9</td></tr>
-	<tr><td onclick="nav(37)">←</td><td onclick="nav(48)">0</td><td onclick="nav(39)">→</td></tr>
+	<tr><td><button onclick="nav(49)">1</button></td><td><button onclick="nav(50)">2</button></td><td><button onclick="nav(51)">3</button></td></tr>
+	<tr><td><button onclick="nav(52)">4</button></td><td><button onclick="nav(53)">5</button></td><td><button onclick="nav(54)">6</button></td></tr>
+	<tr><td><button onclick="nav(55)">7</button></td><td><button onclick="nav(56)">8</button></td><td><button onclick="nav(57)">9</button></td></tr>
+	<tr><td><button onclick="nav(37)">←</button></td><td><button onclick="nav(48)">0</button></td><td><button onclick="nav(39)">→</button></td></tr>
 </table></div></div></div>
 
 </body>
