@@ -6,6 +6,7 @@ import * as format from './format';
 import codes from './teletext_codes.json';
 
 const venueListMasthead = "\u0014\u001d\u0015 < \u0007Talks & Workshops                \u0014\u001d\u0017x}0\u0005Venues A-Z                       \u0014\u001d\u0017\u007fk5                                  ";
+const whatsOnNowMasthead = "\u0014\u001d\u0015 < \u0007What's on now/next               \u0014\u001d\u0017x}0\u0005                                 \u0014\u001d\u0017\u007fk5                                  ";
 const footerPrefix = "\u0014\u001d\u0007";
 
 let schedule = [];
@@ -27,12 +28,31 @@ const compareStart = (a, b) => {
     return aStart.valueOf() - bStart.valueOf();
 };
 
+const compareVenues = (a, b) => {
+    if (a.startsWith('Stage ') && !b.startsWith('Stage ')) {
+        return -1;
+    } else if (!a.startsWith('Stage ') && b.startsWith('Stage ')) {
+        return 1;
+    }
+    if (a < b) {
+        return -1;
+    }
+    if (a > b) {
+        return 1;
+    }
+    return 0;
+};
+
 const sectionParent:Page = new Page('100', 'EMF main menu');
 const venuesTemplate:PageTemplate = new PageTemplate('Talk & Workshop venues', venueListMasthead, footerPrefix);
+const whatsOnTemplate:PageTemplate = new PageTemplate('What\'s on now', whatsOnNowMasthead, footerPrefix);
 
 const handleSchedule = () => {
     venues = [];
     eventsByVenue = {};
+    let talksRemaining = false;
+    //const now = moment('2022-06-13T13:00:01');
+    const now = moment();
     let currentDay = moment().day();
     schedule.sort(compareStart).forEach(event => {
         if (!venues.includes(event.venue)) {
@@ -41,11 +61,16 @@ const handleSchedule = () => {
         if (!eventsByVenue[event.venue]) {
             eventsByVenue[event.venue] = [];
         }
-        eventsByVenue[event.venue].push(event);
+        const eventEndTime = moment(event.start_date);
+        if (eventEndTime.isAfter(now)) {
+            talksRemaining = true;
+            eventsByVenue[event.venue].push(event);
+        }
     });
-    venues = venues.sort();
+    venues = venues.sort(compareVenues);
     let venuePageNumber = 200;
     const venueListPage = new GeneratedPage(venuePageNumber.toString(10), sectionParent, venuesTemplate, 'Talk & Workshop venues');
+    const whatsOnNowPage = new GeneratedPage('400', sectionParent, whatsOnTemplate, 'What\'s on now');
     venues.forEach(venue => {
         venuePageNumber++;
         let venueNameDisplay = format.getLines(venue, 35, 1, format.Justification.Left)[0];
@@ -60,9 +85,23 @@ const handleSchedule = () => {
         const venueTemplate:PageTemplate = new PageTemplate(venueNameDisplay, venueMasthead, footerPrefix);
         const venuePage = new GeneratedPage(venuePageNumber.toString(10), venueListPage, venueTemplate,
             format.getLines(venue, 34, 1, format.Justification.Left)[0]);
-        events.forEach(event => {
+        events.forEach((event, index) => {
             //console.log(`    ${event.start_date}  ${event.end_date} ${event.title}`);
             const eventStartTime = moment(event.start_date);
+            const eventEndTime = moment(event.end_date);
+            if (index === 0) {
+                const venueNameLines = format.getLines(venue, 39, 2, format.Justification.Left);
+                const titleLines = format.getLines(event.title, 38, 3, format.Justification.Left);
+                venueNameLines.forEach(nameLine => {
+                    whatsOnNowPage.addContentLine(codes.TEXT_YELLOW + nameLine);
+                });
+                whatsOnNowPage.addContentLine(codes.TEXT_GREEN + ' ' + eventStartTime.format('HHmm') + '-' + eventEndTime.format('HHmm') +
+                    codes.TEXT_WHITE + format.getLines(event.speaker, 28, 1, format.Justification.Left));
+                titleLines.forEach(titleLine => {
+                    whatsOnNowPage.addContentLine(codes.TEXT_CYAN + ' ' + titleLine);
+                });
+                whatsOnNowPage.addContentLine(codes.BLANK_LINE);
+            }
             const titleLines = format.getLines(event.title.toUpperCase(), 34, 3, format.Justification.Left);
             let timeShown = false;
             if (currentDay !== eventStartTime.day()) {
@@ -109,9 +148,16 @@ const handleSchedule = () => {
                 }
             }
         });
+        if (events.length === 0) {
+            venuePage.addContentLine(codes.TEXT_RED + 'No further talks scheduled             ');
+        }
         registerPage(venuePage);
     });
+    if (!talksRemaining) {
+        whatsOnNowPage.addContentLine(codes.TEXT_RED + 'No further talks scheduled             ');
+    }
     registerPage(venueListPage);
+    registerPage(whatsOnNowPage);
 }
 
 let registerPage = page => {
