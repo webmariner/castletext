@@ -6,7 +6,7 @@ import * as format from './format';
 import codes from './teletext_codes.json';
 
 const venueListMasthead = "\u0014\u001d\u0015 < \u0007Talks & Workshops                \u0014\u001d\u0017x}0\u0005Venues A-Z                       \u0014\u001d\u0017\u007fk5                                  ";
-const whatsOnNowMasthead = "\u0014\u001d\u0015 < \u0007What's on now/next               \u0014\u001d\u0017x}0\u0005                                 \u0014\u001d\u0017\u007fk5                                  ";
+const whatsOnNowMasthead = "\u0014\u001d\u0015 < \u0007                                 \u0014\u001d\u0017x}0\u0007What's on now/next               \u0014\u001d\u0017\u007fk5                                  ";
 const footerPrefix = "\u0014\u001d\u0007";
 
 let schedule = [];

@@ -9,6 +9,7 @@ const { fetchListings } = require('./channelfeeds');
 const { fetchSchedule } = require('./emfSchedule');
 const { fetchFilms } = require('./emfFilms');
 const { fetchWeather } = require('./emfWeather');
+const { fetchVillages } = require('./emfVillages');
 
 const hostname = 'localhost';
 const port = 1700;
@@ -30,6 +31,7 @@ const fetchThings = () => {
 	fetchSchedule(registerPage);
 	fetchFilms(registerPage);
 	fetchWeather(registerPage);
+	fetchVillages(registerPage);
 };
 fetchThings();
 setInterval(fetchThings, 300000);
