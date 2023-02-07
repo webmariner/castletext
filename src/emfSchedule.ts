@@ -61,7 +61,7 @@ const handleSchedule = () => {
         if (!eventsByVenue[event.venue]) {
             eventsByVenue[event.venue] = [];
         }
-        const eventEndTime = moment(event.start_date);
+        const eventEndTime = moment(event.end_date);
         if (eventEndTime.isAfter(now)) {
             talksRemaining = true;
             eventsByVenue[event.venue].push(event);
@@ -135,7 +135,7 @@ const handleSchedule = () => {
                     timeShown = true;
                 }
             }
-            const summaryLines = format.getLines(event.description, 34, 20, format.Justification.Left);
+            const summaryLines = format.getLines(event.description, 34, 50, format.Justification.Left);
             if (!timeShown && summaryLines.length === 0) {
                 summaryLines.push(''.padEnd(34));
             }
