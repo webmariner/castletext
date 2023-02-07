@@ -68,7 +68,7 @@ function nav(code) {
 	if (newpage.length > 0) {
 		for (var i = 0; i < 3; i++) {
 			editor.put_char(i+1,0,pndisplay.charCodeAt(i),1);
-			editor.redraw();
+			editor.render(1,0,3,1);
 		}
 	}
 	if (newpage.length === 3) {
@@ -98,15 +98,16 @@ function fetch_page(pageNumberAsString, editor) {
 		})
 		.then(text => {
 			if (success) {
-				editor.init_frame('frame');
-				editor.load('0:' + text);
+				editor.init_state();
+				editor.load_from_hashstring('0:' + text);
+				editor.render(0, 0, 40, 25, 0);
 			} else {
+				pagenum = oldpage;
+				newpage = '';
 				for (var i = 0; i < 3; i++) {
-					pagenum = oldpage;
-					newpage = '';
 					editor.put_char(i+1,0,oldpage.charCodeAt(i),1);
-					editor.redraw();
 				}
+				editor.render(1,0,3,1);
 			}
 		});
 }

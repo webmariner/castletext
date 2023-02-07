@@ -5139,7 +5139,9 @@ this.init_frame = function(id) {
 	render(0, 0, 40, 25, 0);
 
 	this.put_char = put_char;
-	this.redraw = redraw;
+	this.render = render;
+	this.init_state = init_state;
+	this.load_from_hashstring = load_from_hashstring;
 
 	// Set up listeners for events
 	//init_mouse();
