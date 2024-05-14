@@ -16,12 +16,10 @@
   "author": "James Timmons",
   "license": "GPL-3.0-only",
   "dependencies": {
-    "axios": "^0.21.1",
-    "davefeedread": "^0.5.11",
+    "axios": "^1.6.8",
+    "cheerio": "^1.0.0-rc.12",
     "he": "^1.2.0",
-    "moment": "^2.24.0",
-    "node-html-parser": "^5.2.0",
-    "request": "^2.88.2"
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "@types/node": "^16.11.10",

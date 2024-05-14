@@ -1,8 +1,5 @@
-import parser from 'davefeedread';
-import he from 'he';
 import axios from 'axios';
-import request from 'request';
-import { parse } from 'node-html-parser';
+import cheerio from 'cheerio';
 import { GeneratedPage, Page, PageTemplate } from './page';
 import * as format from './format';
 import codes from './teletext_codes.json';
@@ -37,8 +34,8 @@ class TranslatedWebPage extends GeneratedPage {
             // the ones we got last time, then don't fetch again.
             if (TranslatedWebPage.webCache[webUrl].headAllowed) {
                 axios.head(webUrl).then(response => {
-                    if (response.headers['Last-Modified'] === TranslatedWebPage.webCache[webUrl].lastModified &&
-                        response.headers['Etag'] === TranslatedWebPage.webCache[webUrl].etag) {
+                    if (response.headers['last-modified'] === TranslatedWebPage.webCache[webUrl].lastModified &&
+                        response.headers['etag'] === TranslatedWebPage.webCache[webUrl].etag) {
                         TranslatedWebPage.populatePagesFromCache(webUrl);
                     } else {
                         TranslatedWebPage.fetchContent(webUrl);
@@ -63,29 +60,42 @@ class TranslatedWebPage extends GeneratedPage {
             TranslatedWebPage.webCache[webUrl] = {};
         }
         let cachePage = TranslatedWebPage.webCache[webUrl];
-        request(webUrl, function(err, resp, body){
-            if (err) {
-                console.log(`Page load failed: ${webUrl}`);
-                // Did this URL work before? If so leave it be, stale is better than broken :)
-                if (cachePage.body) {
-                    console.log('Keeping old copy');
-                } else {
-                    cachePage.err = err;
-                    console.log(err);
-                }
-            } else {
-                delete cachePage[err];
-                cachePage.body = body;
-                cachePage.headAllowed = true;
-                // Remember the ETag and Last-Updated header values
-                if (resp.headers['Last-Modified']) {
-                    cachePage.lastModified = resp.headers['Last-Modified'];
-                }
-                if (resp.headers['Etag']) {
-                    cachePage.etag = resp.headers['Etag'];
-                }
+        axios.get(webUrl, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Accept-Language': 'en-GB.en,q=0.5',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'DNT': '1',
+                'Sec-GPC': '1',
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'none',
+                'Sec-Fetch-User': '?1',
+                'TE': 'trailers'
+            }
+        }).then(resp => {
+            delete cachePage.err;
+            cachePage.body = resp.data;
+            cachePage.headAllowed = true;
+            // Remember the ETag and Last-Updated header values
+            if (resp.headers['last-modified']) {
+                cachePage.lastModified = resp.headers['last-modified'];
+            }
+            if (resp.headers['etag']) {
+                cachePage.etag = resp.headers['etag'];
             }
             TranslatedWebPage.populatePagesFromCache(webUrl);
+        }).catch(err => {
+            console.log(`Page load failed for ${webUrl}: ${err}`);
+            // Did this URL work before? If so leave it be, stale is better than broken :)
+            if (cachePage.body) {
+                console.log('Keeping old copy');
+            } else {
+                cachePage.err = err;
+            }
         });
     }
 
@@ -113,7 +123,6 @@ class TranslatedWebPage extends GeneratedPage {
     load() {
         // Check the web cache to see if we already have the latest content for this page
         TranslatedWebPage.checkCache(this.webUrl);
-        console.log(`Checking cache for ${this.parent.name} article from ${this.webUrl}`);
     }
 
     handleContent(err, body) {
@@ -123,22 +132,30 @@ class TranslatedWebPage extends GeneratedPage {
             this.addContentLine(codes.TEXT_YELLOW + headlineLine);
         }
         if (err) {
+            console.log(`News story load failed: ${this.webUrl}`);
             this.addContentLine(codes.BLANK_LINE);
             this.addContentLine((codes.TEXT_RED + '(article content not available)').padEnd(40));
         } else {
-            const root = parse(body);
-            const paragraphs = root.querySelectorAll(this.articleCopySelector);
-            if (!paragraphs.length) {
-                console.log(`Couldn't find paragraphs using selector ${this.articleCopySelector} in the following source:`);
-                //console.log(body);
-                console.log(this.webUrl);
+            const $ = cheerio.load(body);
+            $('script,style').remove();
+            let paragraphs = $(this.articleCopySelector);
+            if (paragraphs.length === 0) {
+                console.log(`No copy found for selector ${this.articleCopySelector} in ${this.webUrl}, trying p`);
+                paragraphs = $('p');
+            }
+            if (paragraphs.length === 0) {
+                console.log(`Still no copy found in body (length ${body.length}): ${paragraphs}`);
                 this.addContentLine(codes.BLANK_LINE);
                 this.addContentLine((codes.TEXT_RED + '(article content not available)').padEnd(40));
             }
             const that = this;
-            paragraphs.forEach(function(tag) {
-                const isListItem = tag.tagName === 'LI';
-                const lines = format.getLines(tag.text, isListItem? 37:39, null, format.Justification.Left);
+            paragraphs.each((ix, e) => {
+                if (e['type'] !== 'tag') {
+                    return;
+                }
+                const text = $(e).text();
+                let isListItem = e['name'].toUpperCase() === 'LI';
+                const lines = format.getLines(text, isListItem? 37:39, null, format.Justification.Left);
                 that.addContentLine(codes.BLANK_LINE);
                 lines.forEach((line, index) => {
                     var prefix = '';
@@ -163,32 +180,77 @@ class RSSFeedPageGenerator {
     menuPageNumber:string;
     menuPageName:string;
     feedUrl:string;
+    exclude:string;
     articleCopySelector:string;
     sectionParent:Page;
 
-    constructor(template:PageTemplate, menuPageNumber:string, menuPageName:string, feedUrl:string, articleCopySelector:string, sectionParent:Page) {
+    constructor(template:PageTemplate, menuPageNumber:string, menuPageName:string, feedUrl:string, exclude:string, articleCopySelector:string, sectionParent:Page) {
         this.template = template;
         this.menuPageNumber = menuPageNumber;
         this.menuPageName = menuPageName;
         this.feedUrl = feedUrl;
+        this.exclude = exclude;
         this.articleCopySelector = articleCopySelector;
         this.sectionParent = sectionParent;
     }
 
     generatePages() {
         let pageNumber = parseInt(this.menuPageNumber, 16);
-        parser.parseUrl(this.feedUrl, 10, (err, out) => {
-            if (err) {
-                console.error(`Problem parsing feed for ${this.menuPageName}`);
-                console.error(err);
-                return;
+        axios.get(this.feedUrl).then(resp => {
+            let feedFormat, $, stories;
+            if (resp.headers['content-type'].startsWith('application/atom+xml')) {
+                feedFormat = 'atom';
+            } else if (resp.headers['content-type'].startsWith('application/rss+xml')
+                || resp.headers['content-type'].startsWith('application/xml')
+                || resp.headers['content-type'].startsWith('text/xml')) {
+                feedFormat = 'rss';
+            } else if (resp.headers['content-type'].startsWith('application/json')) {
+                feedFormat = 'reuters';
+            }
+            switch (feedFormat) {
+            case 'reuters':
+                stories = resp.data.result.articles.map(e => {
+                    return {
+                        headline: e.basic_headline,
+                        link: `https://www.reuters.com${e.canonical_url}`
+                    };
+                });
+                break;
+            case 'atom':
+                $ = cheerio.load(resp.data, {xmlMode: true});
+                stories = $('entry').map((i, e) => {
+                    return {
+                        headline: $(e).find('title').text(),
+                        link: $(e).find('link').attr('href')
+                    };
+                });
+                break;
+            case 'rss':
+                $ = cheerio.load(resp.data, {xmlMode: true});
+                stories = $('item').map((i, e) => {
+                    return {
+                        headline: $(e).find('title').text(),
+                        link: $(e).find('link').text()
+                    };
+                });
+                break;
             }
             const feedMenuPage:GeneratedPage = new GeneratedPage(this.menuPageNumber, sectionParent, this.template, this.menuPageName);
-            for (let j = 1; j <= Math.min(out.items.length, 9); j++) {
+            let j = 0;
+            console.log(`${this.menuPageName} [${resp.headers['content-type']}]`);
+            for (var story of stories) {
+                const headline = story.headline;
+                const link = story.link;
+                console.log(`   ${headline}`);
+                console.log(`      [${link}]`);
+                if (this.exclude && headline.match(new RegExp(this.exclude))) {
+                    continue;
+                } else {
+                    j++;
+                }
                 let articlePageNumber = (pageNumber + j).toString(16);
-                let headline = he.decode(out.items[j-1].title);
                 const articlePage:TranslatedWebPage = new TranslatedWebPage(
-                    articlePageNumber, feedMenuPage, this.template, out.items[j-1].link, headline, this.articleCopySelector
+                    articlePageNumber, feedMenuPage, this.template, link, headline, this.articleCopySelector
                 );
                 articlePage.load();
                 registerPage(articlePage);
@@ -196,8 +258,15 @@ class RSSFeedPageGenerator {
                 let lines = format.getLines(headline,35,2,format.Justification.Left);
                 feedMenuPage.addContentLine(codes.TEXT_YELLOW + articlePageNumber + codes.TEXT_WHITE + lines[0]);
                 if (lines[1]) feedMenuPage.addContentLine('     ' + lines[1]);
+                if (j === 9) {
+                    break;
+                }
             }
             registerPage(feedMenuPage);
+        }).catch(err => {
+            console.error(`Problem parsing feed for ${this.menuPageName}`);
+            console.error(err);
+            return;
         });
     }
 }
@@ -210,7 +279,7 @@ const feedPageGenerators:[RSSFeedPageGenerator] = feedPageConfig.map(feedConfig 
     const template = feedConfig.masthead && feedConfig.footerPrefix ?
         new PageTemplate(feedConfig.name, feedConfig.masthead, feedConfig.footerPrefix) :
         new PageTemplate(feedConfig.name);
-    return new RSSFeedPageGenerator(template, feedConfig.number, feedConfig.name, feedConfig.feed, feedConfig.articleCopy, sectionParent);
+    return new RSSFeedPageGenerator(template, feedConfig.number, feedConfig.name, feedConfig.feed, feedConfig.exclude, feedConfig.articleCopy, sectionParent);
 }) as [RSSFeedPageGenerator];
 
 let registerPage = page => {
