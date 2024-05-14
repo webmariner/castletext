@@ -2,11 +2,12 @@
 	{
 		"number":"510",
 		"feed":"http://feeds.bbci.co.uk/news/rss.xml",
-		"name":"BBC Main News",
+		"name":"BBC UK News",
+		"exclude": "Watch:",
 		"masthead":
-			"\u0017\u0060\u0070\u0070\u0070\u0060\u0070\u0070\u0070\u0060\u0070\u0070\u0070\u0014\u007c\u007c\u003c\u007c\u003c\u007c\u002c\u007c\u006c\u006c\u003c\u007c\u006c\u003c\u003c\u002c\u003c\u007c\u006c\u003c\u003c\u002c\u007c\u007c\u007c\u007c\u0017\u006a\u0020\u0024\u007a\u006a\u0020\u0024\u007a\u006a\u0020\u0074\u007a\u0014\u001d\u0013\u006a\u0064\u006e\u0068\u0073\u0034\u0035\u007d\u007a\u0020\u007d\u007a\u006a\u0073\u006a\u0030\u0035\u007a\u006a\u0073\u0020\u0020\u0020\u0020\u0017\u006a\u0070\u0071\u007a\u006a\u0070\u0071\u007a\u006a\u0070\u0071\u007a\u0014\u001d\u0013\u002a\u0020\u002a\u002a\u0020\u0025\u0025\u0025\u002b\u0020\u0025\u002b\u002a\u002c\u0020\u002d\u0029\u0025\u0028\u002e\u0020\u0020\u0020\u0020",
+			"\u0017`ppp`ppp`ppp\u0014||<|ll<|l<<,<|l<<,||||||||\u0017j $zj $zj tz\u0014\u001d\u0013j 5u& }zjsj05zjs        \u0017jpqzjpqzjpqz\u0014\u001d\u0013\u0022,!%) %+*, -)%(.        ",
 		"footerPrefix":"\u0004\u001d\u0007",
-		"articleCopy":"#page div.story-body__inner>p,div[data-component=\"text-block\"]>div,div[data-component$=\"list-block\"]>div li"
+		"articleCopy":"#page div.story-body__inner>p,div[data-component=\"text-block\"]>div,div[data-component$=\"list-block\"]>div li,section.qa-summary-points ol>li"
 	},
 	{
 		"number":"520",
@@ -19,66 +20,58 @@
 	},
 	{
 		"number": "530",
-		"feed": "http://feeds.feedburner.com/euronews/en/home/",
-		"name": "Euronews",
+		"feed": "https://www.reuters.com/pf/api/v3/content/fetch/articles-by-section-alias-or-id-v1?query={\"arc-site\":\"reuters\",\"fetch_type\":\"collection\",\"id\":\"/world/uk/\",\"offset\":0,\"section_id\":\"/world/uk/\",\"size\":9,\"uri\":\"/world/uk/\",\"website\":\"reuters\"}&d=189&_website=reuters",
+		"name":"Reuters UK",
 		"masthead":
-			"\u0017\u001d\u0014\u0060\u002c\u0030\u0068  \u0034\u0060\u002c\u0024\u0060\u002c\u0030\u0060\u007c\u007c\u0030\u0060\u003c\u0074\u0068\u0030\u0068\u0034\u0060\u0034\u0078\u002c\u0074        \u0017\u001d\u0014\u003d\u002c\u002e\u006a  \u0035\u0035  \u0035 \u006a\u006a\u0035\u006a\u0035\u007f\u002c\u002e\u0022\u007d\u007e\u007d\u007e\u0021\u002b\u002c\u0074        \u0017\u001d\u0014\u0022\u002c\u0021 \u0029\u0026 \u0025  \u0022\u002c\u0021\u002a\u0025\u002a\u0025\u0022\u002d\u0027 \u002a\u0025\u002a\u0025 \u002b\u002c\u0027\u002a\u0025      ",
-		"footerPrefix": "\u0007\u001d\u0004",
-		"articleCopy": "div.c-article-content>p"
-	},
-	{
-		"number": "540",
-		"feed": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=GB:en&hl=en-GB&gl=GB",
-		"name":"Reuters Top News",
-		"masthead":
-			"\u0011\u001a p,d0\u0017\u0019p0`p` 0pp0p0p0 p\u0007              \u0011\u001ah564}\u0017\u0019u:j,j 5 5 =$u:*d\u0007              \u0011\u001a -r8%\u0017\u0019%)*,\",! % -$%)(&\u0007TOP NEWS      ",
+			"\u0011\u001a p,d0\u0017\u0019p0`p` 0pp0p0p0 p\u0007              \u0011\u001ah564}\u0017\u0019u:j,j 5 5 =$u:*d\u0007              \u0011\u001a -r8%\u0017\u0019%)*,\",! % -$%)(&\u0007UK NEWS       ",
 		"footerPrefix":"\u0001\u001d\u0007",
-		"articleCopy":"article>div>div>div>div>p"
+		"articleCopy":"div[class^='article-body']>div[class^='text__text']"
 	},
 	{
-		"number":"550",
+		"number":"540",
 		"feed":"https://www.theguardian.com/uk/rss",
-		"name":"The Guardian",
+		"name":"Guardian UK News",
 		"masthead":
 			"\u0004\u001d\u0017x\u0027+ ` ` p   00`h4< p  ``             \u0004\u001d\u0017\u007f(|&\u007f\"\u007f`a} k7i\u0027k5|`a}\"\u007fk5            \u0004\u001d\u0017\",\u0027 +&\u0027\"\u0027/$.%\"-+)/\"\u0027/,/*-            ",
 		"footerPrefix":"\u0004\u001d\u0007",
 		"articleCopy":"div.content__article-body>p,div.content__article-body>p,div.article-body-commercial-selector>p"
 	},
 	{
-		"number":"560",
-		"feed":"https://www.theregister.co.uk/headlines.atom",
-		"name":"Register Headlines",
-		"masthead":
-			"\u0001\u001d\u0017\u0020\u0020\u0038\u006f\u007d\u0030\u0020\u0007                             \u0001\u001d\u0017\u0060\u007c\u007d\u007f\u007f\u0021\u0030\u0007T H E   R E G I S T E R      \u0001\u001d\u0017\u006f\u0021\u0022\u007f\u007d\u003e\u0020\u0003biting the hand that feeds IT",
-		"footerPrefix":"\u0001\u001d\u0007",
-		"articleCopy":"#body>p"
-	},
-	{
-		"number":"570",
-		"feed":"https://www.theregister.co.uk/bootnotes/stob/headlines.atom",
-		"name":"Verity Stob Bootnotes",
-		"masthead":
-			"\u0001\u001d\u0017\u0020\u0020\u0038\u006f\u007d\u0030\u0020\u0007                             \u0001\u001d\u0017\u0060\u007c\u007d\u007f\u007f\u0021\u0030\u0007T H E   R E G I S T E R      \u0001\u001d\u0017\u006f\u0021\u0022\u007f\u007d\u003e\u0020\u0003Verity Stob's Bootnotes      ",
-		"footerPrefix":"\u0001\u001d\u0007",
-		"articleCopy":"#body>p"
-	},
-	{
-		"number":"580",
-		"feed":"http://rss.slashdot.org/Slashdot/slashdot",
-		"name":"Slashdot",
-		"masthead":
-			"\u0016\u001d\u0017 h?  \u0007S L A S H D O T                \u0016\u001d\u0017`\u007f!`0\u0007News for nerds,                \u0016\u001d\u0017~% o?\u0007stuff that matters             ",
-		"footerPrefix":"\u0006\u001d\u0007",
-		"articleCopy":"div.body div.p"
-	},
-	{
-		"number":"590",
+		"number":"550",
 		"feed":"https://www.independent.ie/rss/",
 		"name":"Irish Independent",
 		"masthead":
 			"\u0007\u001d\u0012<<<|                                 \u0007\u001d\u00125u}%\u0004Independent.ie                  \u0007\u001d\u0012)/!                                  ",
 		"footerPrefix":"\u0007\u001d\u0004",
-		"articleCopy":"div.n-body1>p"
+		"articleCopy":"div[data-testid=article-intro]>p,div[data-testid=article-body]>p"
+	},
+	{
+		"number":"560",
+		"feed":"https://www.thenational.scot/news/rss/",
+		"name":"The National (Scotland)",
+		"articleCopy":"#subscription-replace-entire-article p"
+	},
+	{
+		"number":"570",
+		"feed":"https://www.walesonline.co.uk/news/?service=rss",
+		"name":"Western Mail (Wales)",
+		"articleCopy":"div.article-body p"
+	},
+	{
+		"number":"580",
+		"feed":"https://news.un.org/feed/subscribe/en/news/all/rss.xml",
+		"name":"United Nations News",
+		"articleCopy":"#block-views-block-content-fields-block-body p"
+	},
+	{
+		"number": "590",
+		"feed": "http://feeds.feedburner.com/euronews/en/home/",
+		"exclude": "Watch\\:|Latest news bulletin",
+		"name": "Euronews",
+		"masthead":
+			"\u0017\u001d\u0014\u0060\u002c\u0030\u0068  \u0034\u0060\u002c\u0024\u0060\u002c\u0030\u0060\u007c\u007c\u0030\u0060\u003c\u0074\u0068\u0030\u0068\u0034\u0060\u0034\u0078\u002c\u0074        \u0017\u001d\u0014\u003d\u002c\u002e\u006a  \u0035\u0035  \u0035 \u006a\u006a\u0035\u006a\u0035\u007f\u002c\u002e\u0022\u007d\u007e\u007d\u007e\u0021\u002b\u002c\u0074        \u0017\u001d\u0014\u0022\u002c\u0021 \u0029\u0026 \u0025  \u0022\u002c\u0021\u002a\u0025\u002a\u0025\u0022\u002d\u0027 \u002a\u0025\u002a\u0025 \u002b\u002c\u0027\u002a\u0025      ",
+		"footerPrefix": "\u0007\u001d\u0004",
+		"articleCopy": ".c-article-content li, .c-article-content p"
 	},
 	{
 		"number":"610",
@@ -91,39 +84,29 @@
 	},
 	{
 		"number":"620",
+		"feed":"https://www.theregister.co.uk/headlines.atom",
+		"name":"Register Tech News",
+		"masthead":
+			"\u0001\u001d\u0017\u0020\u0020\u0038\u006f\u007d\u0030\u0020\u0007                             \u0001\u001d\u0017\u0060\u007c\u007d\u007f\u007f\u0021\u0030\u0007T H E   R E G I S T E R      \u0001\u001d\u0017\u006f\u0021\u0022\u007f\u007d\u003e\u0020\u0003biting the hand that feeds IT",
+		"footerPrefix":"\u0001\u001d\u0007",
+		"articleCopy":"#body>p"
+	},
+	{
+		"number":"630",
+		"feed":"http://rss.slashdot.org/Slashdot/slashdot",
+		"name":"Slashdot",
+		"masthead":
+			"\u0016\u001d\u0017 h?  \u0007S L A S H D O T                \u0016\u001d\u0017`\u007f!`0\u0007News for nerds,                \u0016\u001d\u0017~% o?\u0007stuff that matters             ",
+		"footerPrefix":"\u0006\u001d\u0007",
+		"articleCopy":"div.body div.p"
+	},
+	{
+		"number":"640",
 		"feed":"http://feeds.bbci.co.uk/news/technology/rss.xml",
 		"name":"BBC Tech News",
 		"masthead":
 			"\u0017`ppp`ppp`ppp\u0014||,l,l<ll<|l<<,<|l<<,|||||\u0017j $zj $zj tz\u0014\u001d\u0013k!w16!uz }zjsj05zjs     \u0017jpqzjpqzjpqz\u0014\u001d\u0013* -$)$%* %+*, -)%(.     ",
 		"footerPrefix":"\u0004\u001d\u0007",
 		"articleCopy":"#page div.story-body__inner>p,div[data-component=\"text-block\"]>div"
-	},
-	{
-		"number":"630",
-		"feed":"https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
-		"name":"New York Times",
-		"masthead": "\u0014\u001d\u0017idi!80d``\"4i 000h  &y,a``` 808,!     \u0014\u001d\u0017k*~j,!jjj\"5jjjj\"j8!6*bhjkkj,!),0     \u0014\u001d\u0017. +\",&\"\u0027\u0027(sq\"&* *\"$\",!****\",&&,! MAIN",
-		"footerPrefix":"\u0004\u001d\u0007",
-		"articleCopy":"div.StoryBodyCompanionColumn>div>p"
-	},
-	{
-		"number":"640",
-		"feed":"https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
-		"name":"New York Times - World",
-		"masthead": "\u0014\u001d\u0017idi!80d``\"4i 000h  &y,a``` 808,!     \u0014\u001d\u0017k*~j,!jjj\"5jjjj\"j8!6*bhjkkj,!),0     \u0014\u001d\u0017. +\",&\"\u0027\u0027(sq\"&* *\"$\",!****\",&&,!WORLD",
-		"footerPrefix":"\u0004\u001d\u0007",
-		"articleCopy":"div.StoryBodyCompanionColumn>div>p"
-	},
-	{
-		"number":"650",
-		"feed":"https://www.thenational.scot/news/rss/",
-		"name":"The National (Scotland)",
-		"articleCopy":"div.article-body p"
-	},
-	{
-		"number":"660",
-		"feed":"https://www.walesonline.co.uk/news/?service=rss",
-		"name":"Western Mail (Wales)",
-		"articleCopy":"div.article-body p"
 	}
 ]

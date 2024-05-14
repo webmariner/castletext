@@ -51,7 +51,7 @@ const handleSchedule = () => {
     venues = [];
     eventsByVenue = {};
     let talksRemaining = false;
-    //const now = moment('2022-06-13T13:00:01');
+    //const now = moment('2024-06-01T13:00:01');
     const now = moment();
     let currentDay = moment().day();
     schedule.sort(compareStart).forEach(event => {
@@ -167,7 +167,7 @@ let registerPage = page => {
 const fetchSchedule = (callback) => {
     registerPage = callback;
     console.log('Fetching EMF Schedule...');
-    axios.get('https://www.emfcamp.org/schedule/2022.json').then(response => {
+    axios.get('https://www.emfcamp.org/schedule/2024.json').then(response => {
         schedule = response.data;
         handleSchedule();
     });

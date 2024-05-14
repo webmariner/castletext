@@ -92,7 +92,7 @@ let registerPage = page => {
 const fetchFilms = (callback) => {
     registerPage = callback;
     console.log('Fetching EMF Film showings...');
-    axios.get('https://emffilms.org/api/2022/schedule').then(response => {
+    axios.get('https://emffilms.org/schedule.json').then(response => {
         handleFilms(response.data);
     });
 };
