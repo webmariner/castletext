@@ -79,7 +79,6 @@ class TVHListingsPage extends GeneratedPage {
 			}
 		}).catch((error) => {
 			console.log(`Problem fetching ${this.name}: ${error}`);
-			console.log(error.request);
 		});
     }
 }

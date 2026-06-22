@@ -3,7 +3,7 @@
 		"number":"510",
 		"feed":"http://feeds.bbci.co.uk/news/rss.xml",
 		"name":"BBC UK News",
-		"exclude": "Watch:",
+		"exclude": "Watch:|Watch as",
 		"masthead":
 			"\u0017`ppp`ppp`ppp\u0014||<|ll<|l<<,<|l<<,||||||||\u0017j $zj $zj tz\u0014\u001d\u0013j 5u& }zjsj05zjs        \u0017jpqzjpqzjpqz\u0014\u001d\u0013\u0022,!%) %+*, -)%(.        ",
 		"footerPrefix":"\u0004\u001d\u0007",
@@ -17,15 +17,6 @@
 			"\u0011\u0060\u007c\u0077\u007d\u0074\u0017INDEPENDENT                      \u0011\u006a\u007f\u0034\u007f\u007f\u0017\u003d\u0038\u0035\u0076\u0079\u006a\u006a\u0074\u0035\u006a\u0074\u0035\u0077\u0031\u006d\u006a\u0068\u0025\u0077\u0031             \u0011\u0022\u002f\u007c\u003e\u0027\u0017\u0025\u0021\u0025\u0025\u002a\u002a\u002a\u0022\u0025\u002a\u0022\u0025\u002d\u0024\u0022\u0027\u0027\u0020\u002c\u0025             ",
 		"footerPrefix":"\u0001\u001d\u0007",
 		"articleCopy": "#main p"
-	},
-	{
-		"number": "530",
-		"feed": "https://www.reuters.com/pf/api/v3/content/fetch/articles-by-section-alias-or-id-v1?query={\"arc-site\":\"reuters\",\"fetch_type\":\"collection\",\"id\":\"/world/uk/\",\"offset\":0,\"section_id\":\"/world/uk/\",\"size\":9,\"uri\":\"/world/uk/\",\"website\":\"reuters\"}&d=189&_website=reuters",
-		"name":"Reuters UK",
-		"masthead":
-			"\u0011\u001a p,d0\u0017\u0019p0`p` 0pp0p0p0 p\u0007              \u0011\u001ah564}\u0017\u0019u:j,j 5 5 =$u:*d\u0007              \u0011\u001a -r8%\u0017\u0019%)*,\",! % -$%)(&\u0007UK NEWS       ",
-		"footerPrefix":"\u0001\u001d\u0007",
-		"articleCopy":"div[class^='article-body']>div[class^='text__text']"
 	},
 	{
 		"number":"540",

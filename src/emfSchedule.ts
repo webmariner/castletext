@@ -167,7 +167,7 @@ let registerPage = page => {
 const fetchSchedule = (callback) => {
     registerPage = callback;
     console.log('Fetching EMF Schedule...');
-    axios.get('https://www.emfcamp.org/schedule/2024.json').then(response => {
+    axios.get('https://www.emfcamp.org/schedule/2022.json').then(response => {
         schedule = response.data;
         handleSchedule();
     });
