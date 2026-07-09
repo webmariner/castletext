@@ -38,14 +38,19 @@
 	},
 	{
 		"number":"560",
-		"feed":"https://www.thenational.scot/news/rss/",
-		"name":"The National (Scotland)",
-		"articleCopy":"#subscription-replace-entire-article p"
+		"feed":"https://www.scotsman.com/news/rss",
+		"name":"The Scotsman",
+		"masthead":
+			"\u0013?sk\u0002 THE SCOTSMAN                      \u0013=vk\u0005 Dare to be honest                 \u0013-,/,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+		"footerPrefix": "\u0003\u001d\u0004",
+		"articleCopy":"#content-root-wrapper div.markup p"
 	},
 	{
 		"number":"570",
 		"feed":"https://www.walesonline.co.uk/news/?service=rss",
 		"name":"Western Mail (Wales)",
+		"masthead": "\u0017\u001d\u00118o~w \u001c\u0002W E S T E R N   M A I L       \u0017\u001d\u0011&ow9 \u001c\u0011,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\u0012\u001d\u0011`7b4 \u001c\u0006www.walesonline.co.uk         ",
+		"footerPrefix": "\u0017\u001d\u0001",
 		"articleCopy":"div.article-body p"
 	},
 	{
@@ -80,7 +85,7 @@
 		"masthead":
 			"\u0001\u001d\u0017\u0020\u0020\u0038\u006f\u007d\u0030\u0020\u0007                             \u0001\u001d\u0017\u0060\u007c\u007d\u007f\u007f\u0021\u0030\u0007T H E   R E G I S T E R      \u0001\u001d\u0017\u006f\u0021\u0022\u007f\u007d\u003e\u0020\u0003biting the hand that feeds IT",
 		"footerPrefix":"\u0001\u001d\u0007",
-		"articleCopy":"#body>p"
+		"articleCopy":"div.bodytext p"
 	},
 	{
 		"number":"630",

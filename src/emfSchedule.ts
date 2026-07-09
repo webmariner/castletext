@@ -5,11 +5,13 @@ import { Page, GeneratedPage, PageTemplate } from './page';
 import * as format from './format';
 import codes from './teletext_codes.json';
 
-const venueListMasthead = "\u0014\u001d\u0015 < \u0007Talks & Workshops                \u0014\u001d\u0017x}0\u0005Venues A-Z                       \u0014\u001d\u0017\u007fk5                                  ";
+const venueListMasthead = "\u0014\u001d\u0015 < \u0007Schedule                         \u0014\u001d\u0017x}0\u0005Venues A-Z                       \u0014\u001d\u0017\u007fk5                                  ";
 const whatsOnNowMasthead = "\u0014\u001d\u0015 < \u0007                                 \u0014\u001d\u0017x}0\u0007What's on now/next               \u0014\u001d\u0017\u007fk5                                  ";
 const footerPrefix = "\u0014\u001d\u0007";
 
 let schedule = [];
+let events = [];
+let eventTypes = [];
 let venues = [];
 let eventsByVenue = {};
 
@@ -44,17 +46,31 @@ const compareVenues = (a, b) => {
 };
 
 const sectionParent:Page = new Page('100', 'EMF main menu');
-const venuesTemplate:PageTemplate = new PageTemplate('Talk & Workshop venues', venueListMasthead, footerPrefix);
+const venuesTemplate:PageTemplate = new PageTemplate('Venues', venueListMasthead, footerPrefix);
 const whatsOnTemplate:PageTemplate = new PageTemplate('What\'s on now', whatsOnNowMasthead, footerPrefix);
 
 const handleSchedule = () => {
+    events = [];
     venues = [];
+    eventTypes = [];
     eventsByVenue = {};
     let talksRemaining = false;
-    //const now = moment('2024-06-01T13:00:01');
+    //const now = moment('2024-05-28T13:00:01');
     const now = moment();
     let currentDay = moment().day();
-    schedule.sort(compareStart).forEach(event => {
+    schedule.forEach(schedEvent => {
+        schedEvent.occurrences.forEach(occurrence => {
+            let event = {...occurrence};
+            event['type'] = schedEvent.type;
+            event.title = schedEvent.title;
+            //event.description = schedEvent.description;
+            //event.short_description = schedEvent.short_description;
+            event.description = schedEvent.short_description;
+            event.names = schedEvent.names;
+            events.push(event);
+        });
+    });
+    events.sort(compareStart).forEach(event => {
         if (!venues.includes(event.venue)) {
             venues.push(event.venue);
         }
@@ -69,7 +85,7 @@ const handleSchedule = () => {
     });
     venues = venues.sort(compareVenues);
     let venuePageNumber = 200;
-    const venueListPage = new GeneratedPage(venuePageNumber.toString(10), sectionParent, venuesTemplate, 'Talk & Workshop venues');
+    const venueListPage = new GeneratedPage(venuePageNumber.toString(10), sectionParent, venuesTemplate, 'Venues');
     const whatsOnNowPage = new GeneratedPage('400', sectionParent, whatsOnTemplate, 'What\'s on now');
     venues.forEach(venue => {
         venuePageNumber++;
@@ -81,22 +97,26 @@ const handleSchedule = () => {
         if (venueLines.length === 1) {
             venueLines.push(''.padEnd(33));
         }
-        const venueMasthead = `\u0014\u001d\u0015 < \u0007Talks & Workshops                \u0014\u001d\u0017x}0\u0005${venueLines[0]}\u0014\u001d\u0017\u007fk5\u0005${venueLines[1]}`;
+        const venueMasthead = `\u0014\u001d\u0015 < \u0007Venues                           \u0014\u001d\u0017x}0\u0005${venueLines[0]}\u0014\u001d\u0017\u007fk5\u0005${venueLines[1]}`;
         const venueTemplate:PageTemplate = new PageTemplate(venueNameDisplay, venueMasthead, footerPrefix);
         const venuePage = new GeneratedPage(venuePageNumber.toString(10), venueListPage, venueTemplate,
             format.getLines(venue, 34, 1, format.Justification.Left)[0]);
         events.forEach((event, index) => {
-            //console.log(`    ${event.start_date}  ${event.end_date} ${event.title}`);
+            console.log(`    ${event.start_date}  ${event.end_date} ${event.title}`);
             const eventStartTime = moment(event.start_date);
             const eventEndTime = moment(event.end_date);
             if (index === 0) {
+                let nowNextTitle = event.type.toUpperCase();
+                if (!!event.names) {
+                    nowNextTitle = event.names;
+                }
                 const venueNameLines = format.getLines(venue, 39, 2, format.Justification.Left);
                 const titleLines = format.getLines(event.title, 38, 3, format.Justification.Left);
                 venueNameLines.forEach(nameLine => {
                     whatsOnNowPage.addContentLine(codes.TEXT_YELLOW + nameLine);
                 });
                 whatsOnNowPage.addContentLine(codes.TEXT_GREEN + ' ' + eventStartTime.format('HHmm') + '-' + eventEndTime.format('HHmm') +
-                    codes.TEXT_WHITE + format.getLines(event.speaker, 28, 1, format.Justification.Left));
+                    codes.TEXT_WHITE + format.getLines(nowNextTitle, 28, 1, format.Justification.Left));
                 titleLines.forEach(titleLine => {
                     whatsOnNowPage.addContentLine(codes.TEXT_CYAN + ' ' + titleLine);
                 });
@@ -126,7 +146,7 @@ const handleSchedule = () => {
                 });
                 timeShown = true;
             }
-            const subTitleLines = format.getLines(event.speaker, 34, 6, format.Justification.Left);
+            const subTitleLines = format.getLines(event.names, 34, 6, format.Justification.Left);
             for (let line of subTitleLines) {
                 if (timeShown) {
                     venuePage.addContentLine(codes.TEXT_WHITE + '     ' + line);
@@ -167,7 +187,7 @@ let registerPage = page => {
 const fetchSchedule = (callback) => {
     registerPage = callback;
     console.log('Fetching EMF Schedule...');
-    axios.get('https://www.emfcamp.org/schedule/2022.json').then(response => {
+    axios.get('https://www.emfcamp.org/schedule/2026.json').then(response => {
         schedule = response.data;
         handleSchedule();
     });

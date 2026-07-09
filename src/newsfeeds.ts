@@ -198,13 +198,14 @@ class RSSFeedPageGenerator {
         let pageNumber = parseInt(this.menuPageNumber, 16);
         axios.get(this.feedUrl).then(resp => {
             let feedFormat, $, stories;
-            if (resp.headers['content-type'].startsWith('application/atom+xml')) {
+            const contentType = resp.headers['content-type'] as string;
+            if (contentType.startsWith('application/atom+xml')) {
                 feedFormat = 'atom';
-            } else if (resp.headers['content-type'].startsWith('application/rss+xml')
-                || resp.headers['content-type'].startsWith('application/xml')
-                || resp.headers['content-type'].startsWith('text/xml')) {
+            } else if (contentType.startsWith('application/rss+xml')
+                || contentType.startsWith('application/xml')
+                || contentType.startsWith('text/xml')) {
                 feedFormat = 'rss';
-            } else if (resp.headers['content-type'].startsWith('application/json')) {
+            } else if (contentType.startsWith('application/json')) {
                 feedFormat = 'reuters';
             }
             switch (feedFormat) {
@@ -237,7 +238,7 @@ class RSSFeedPageGenerator {
             }
             const feedMenuPage:GeneratedPage = new GeneratedPage(this.menuPageNumber, sectionParent, this.template, this.menuPageName);
             let j = 0;
-            console.log(`${this.menuPageName} [${resp.headers['content-type']}]`);
+            console.log(`${this.menuPageName} [${contentType}]`);
             for (var story of stories) {
                 const headline = story.headline;
                 const link = story.link;

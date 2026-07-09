@@ -7,7 +7,7 @@ const staticPages = require('./static_pages.json');
 const { fetchFeeds } = require('./newsfeeds');
 const { fetchListings } = require('./channelfeeds');
 const { fetchSchedule } = require('./emfSchedule');
-const { fetchFilms } = require('./emfFilms');
+//const { fetchFilms } = require('./emfFilms');
 const { fetchWeather } = require('./emfWeather');
 const { fetchVillages } = require('./emfVillages');
 
@@ -29,12 +29,12 @@ const fetchThings = () => {
 	fetchFeeds(registerPage);
 	//fetchListings(registerPage);
 	fetchSchedule(registerPage);
-	fetchFilms(registerPage);
+	//fetchFilms(registerPage);
 	fetchWeather(registerPage);
 	fetchVillages(registerPage);
 };
 fetchThings();
-setInterval(fetchThings, 300000);
+setInterval(fetchThings, 1800000);
 
 const server = http.createServer((req, res) => {
 	const reqUrl = url.parse(req.url, true);
